@@ -99,6 +99,13 @@ public final class InputFieldFactory {
         }
     }
 
+    static Class<? extends AbsInputFieldViewController> getReplaceViewController(String key){
+        if(_fieldReplaceViewControllerMap.containsKey(key)){
+            return _fieldReplaceViewControllerMap.get(key);
+        }
+        return null;
+    }
+
     //static block will be executed when this is called.
     public static void init(){
         Log.d("formDroid", "inputfactory init");

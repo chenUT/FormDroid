@@ -2,6 +2,8 @@ package com.chen.formdroid.core.template.fields;
 
 import android.app.Fragment;
 
+import com.chen.formdroid.core.annotations.InputField;
+
 /**
  * Created by chen on 3/27/15.
  */
@@ -81,9 +83,13 @@ public abstract class AbsInputField<T> {
         this.allowEmpty = false;
         this.enabled = true;
         this.fieldId = fieldId;
-//        registerInputField(this.getClass());
     }
 
+    protected Class<? extends AbsInputFieldViewController> getOverrideController(AbsInputFieldViewController vCtrl){
+        String vCtrlName = vCtrl.getClass().getName();
+        Class<? extends AbsInputFieldViewController> newVCtrlClass = InputFieldFactory.getReplaceViewController(vCtrlName);
+        return newVCtrlClass;
+    }
 //    public void fillByJSON(JSONObject tempFieldObj){
 //        try {
 //            Iterator<?> keys = tempFieldObj.keys();
