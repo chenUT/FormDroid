@@ -3,6 +3,7 @@ package com.chen.formdroid;
 import android.content.Context;
 
 import com.chen.formdroid.core.template.fields.InputFieldFactory;
+import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.iListeners.IDataModelListener;
 import com.chen.formdroid.iListeners.IEventListener;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
@@ -34,6 +35,8 @@ public class FormContext {
     public static final List<IEventListener> _eventListeners= new LinkedList<IEventListener>();
     public static final Map<String, IDataModelListener> _dataModelListeners= new ConcurrentHashMap<String, IDataModelListener>();
 
+    private static final Map<Long, Form>  _globalFormCache = new ConcurrentHashMap<>();
+
     //scan annotation to find all input fields
     private static void initGlobalDataMap(){
     }
@@ -63,8 +66,16 @@ public class FormContext {
         InputFieldFactory.registerMapper(_mapper);
     }
 
+    public void setFormCache(Form form){
+        //we first free the memory of previous form
+        if(_globalFormCache.containsKey(form.getFormId())){
+            _globalFormCache.remove(form.getFormId());
+        }
+        _globalFormCache.put(form.getFormId(), form);
+    }
+
+
     public Context getContext(){
         return this._appContext;
     }
-
 }

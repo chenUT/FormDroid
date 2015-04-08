@@ -10,7 +10,7 @@ import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 /**
  * Created by chen on 3/29/15.
  */
-@InputField(Type = "text")
+@InputField(type = "text")
 public class TextField extends AbsInputField<CharSequence>{
 
     static{

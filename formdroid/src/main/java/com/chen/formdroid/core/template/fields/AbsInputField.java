@@ -21,11 +21,11 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class AbsInputField<T> {
     //id of this field
     private final String fieldId;
+    //position id indicate the position of this field in the form structure
     private String posId;
 
     //top level properties
     private String name;
-
     private boolean enabled;
     private boolean required;
     //if allow empty, the field will be carried as part of the result object regardless of its content value

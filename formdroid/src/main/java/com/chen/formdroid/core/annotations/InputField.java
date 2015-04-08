@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InputField {
     //by default if no name specified then the json key will be the name of the class in lower case without "Field"
-    String Type() default "";
+    String type() default "";
 }

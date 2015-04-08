@@ -8,7 +8,7 @@ import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 /**
  * Created by chen on 3/27/15.
  */
-@InputField(Type ="label")
+@InputField(type ="label")
 public class LabelField extends TextField{
 
     public LabelField(String fieldId) {
