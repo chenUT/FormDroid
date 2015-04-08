@@ -1,6 +1,6 @@
 package com.chen.formdroid.core.template.fields.textfield.models;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.chen.formdroid.core.annotations.InputField;
@@ -10,7 +10,7 @@ import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 /**
  * Created by chen on 3/29/15.
  */
-@InputField(JsonKey = "text")
+@InputField(Type = "text")
 public class TextField extends AbsInputField<CharSequence>{
 
     static{

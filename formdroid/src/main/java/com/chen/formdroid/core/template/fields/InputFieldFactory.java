@@ -6,8 +6,11 @@ import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
 import com.chen.formdroid.exceptions.InputFieldTypeMismatchException;
 import com.chen.formdroid.utils.StringUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
 
 import java.lang.annotation.Annotation;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,29 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Internal Class
  */
 public final class InputFieldFactory {
-    //constants
-    public static final String FIELD_ID_KEY = "fieldId";
-    public static final String POSITION_ID_KEY = "posId";
-    public static final String NAME_KEY = "name";
-    public static final String ENABLED_KEY = "enabled";
-    public static final String MEDIA_URI_KEY = "mediaUri";
-    public static final String SHOW_NAME_KEY = "showName";
-    public static final String HAS_VOICE_KEY = "hasVoice";
-    public static final String VISIBLE_KEY = "visible";
-    public static final String DATABASE_KEY = "dbUri";
-    public static final String VALUE_KEY = "value";
-
     //cache to store reflection objects
-    private static final Map<String, Class<? extends AbsInputField>> _inputFieldMap = new ConcurrentHashMap<String, Class<? extends AbsInputField>>();
+    private static final Map<String, Class<? extends AbsInputField>> _inputFieldMap = new ConcurrentHashMap<>();
 
     //cache to store possible overridden viewcontroller
-    private static final Map<String, Class<? extends AbsInputFieldViewController>> _fieldReplaceViewControllerMap = new ConcurrentHashMap<String, Class<? extends AbsInputFieldViewController>>();
-
-    static{
-        Log.d("formDroid", "registering internal components");
-        registerField(LabelField.class);
-        Log.d("formDroid", "end registering internal components");
-    }
+    private static final Map<String, Class<? extends AbsInputFieldViewController>> _fieldReplaceViewControllerMap = new ConcurrentHashMap<>();
 
     private InputFieldFactory(){}
 
@@ -51,19 +36,19 @@ public final class InputFieldFactory {
         }
         Annotation annotation = fieldClass.getAnnotation(InputField.class);
         InputField fieldAnnotation = (InputField)annotation;
-        String jsonKey = fieldAnnotation.JsonKey();
-        if(StringUtils.isEmptyOrWhiteSpace((jsonKey))){
+        String fieldTypeKey = fieldAnnotation.Type();
+        if(StringUtils.isEmptyOrWhiteSpace((fieldTypeKey))){
             //by default json key is class name without field in lower case
             String className = fieldClass.getSimpleName();
             if(className.toLowerCase().endsWith("field")){
-                jsonKey = StringUtils.removeLast(className, "field");
+                fieldTypeKey = StringUtils.removeLast(className, "field");
             }
         }
         //we replace the old one if it exists
-        if(_inputFieldMap.containsKey(jsonKey)){
-           _inputFieldMap.remove(jsonKey);
+        if(_inputFieldMap.containsKey(fieldTypeKey)){
+           _inputFieldMap.remove(fieldTypeKey);
         }
-        _inputFieldMap.put(jsonKey, fieldClass);
+        _inputFieldMap.put(fieldTypeKey, fieldClass);
     }
 
     public static void registerFields(final List<Class<? extends AbsInputField>> fields){
@@ -106,8 +91,22 @@ public final class InputFieldFactory {
         return null;
     }
 
+    static{
+        Log.d("formDroid", "registering internal components");
+        registerField(LabelField.class);
+        Log.d("formDroid", "end registering internal components");
+    }
+
     //static block will be executed when this is called.
     public static void init(){
-        Log.d("formDroid", "inputfactory init");
+    }
+
+//  fill in the jackson ObjectMapper using the already initialized local _inputFieldMap
+    public static void registerMapper(ObjectMapper mapper){
+        Iterator iter =  _inputFieldMap.entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry pair = (Map.Entry)iter.next();
+            mapper.registerSubtypes(new NamedType((Class<?>)pair.getValue(), ""+pair.getKey()));
+        }
     }
 }

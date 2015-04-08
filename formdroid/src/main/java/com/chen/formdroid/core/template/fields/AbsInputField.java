@@ -1,12 +1,23 @@
 package com.chen.formdroid.core.template.fields;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import com.chen.formdroid.core.annotations.InputField;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by chen on 3/27/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(
+        use=JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@type"
+)
 public abstract class AbsInputField<T> {
     //id of this field
     private final String fieldId;
@@ -85,7 +96,38 @@ public abstract class AbsInputField<T> {
         this.fieldId = fieldId;
     }
 
-    protected Class<? extends AbsInputFieldViewController> getOverrideController(AbsInputFieldViewController vCtrl){
+    //view engine fragment will call this to get correct viewcontroller
+    public final AbsInputFieldViewController getViewControllerInternal(Fragment frag){
+       AbsInputFieldViewController vCtrl = getViewController(frag);
+       Class<? extends AbsInputFieldViewController> replaceClass = getReplaceViewControllerClass(vCtrl);
+       if(replaceClass != null){
+           //free the memory
+           vCtrl = null;
+           //create a new view controller using reflection if there is a replacement
+           try {
+               Class<?>[] args = {AbsInputField.class, Fragment.class};
+               Constructor<?> cons = replaceClass.getConstructor(args);
+               Object[] arguments = {this, frag};
+               return (AbsInputFieldViewController)cons.newInstance(arguments);
+           } catch (NoSuchMethodException e) {
+               e.printStackTrace();
+           } catch (IllegalArgumentException e) {
+               e.printStackTrace();
+           } catch (InstantiationException e) {
+               e.printStackTrace();
+           } catch (IllegalAccessException e) {
+               e.printStackTrace();
+           } catch (InvocationTargetException e) {
+               e.printStackTrace();
+           } catch (NullPointerException e){
+               e.printStackTrace();
+           }
+       }
+       //return default controller by default
+       return vCtrl;
+    }
+
+    private Class<? extends AbsInputFieldViewController> getReplaceViewControllerClass(AbsInputFieldViewController vCtrl){
         String vCtrlName = vCtrl.getClass().getName();
         Class<? extends AbsInputFieldViewController> newVCtrlClass = InputFieldFactory.getReplaceViewController(vCtrlName);
         return newVCtrlClass;

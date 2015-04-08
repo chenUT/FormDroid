@@ -5,6 +5,7 @@ import android.app.Application;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.InputFieldFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,9 +18,10 @@ public class FormDroidApp extends Application{
     public void onCreate() {
         super.onCreate();
         //this will guarantee that root scope is alive and have a context reference
-        FormContext.getInstance().init(getApplicationContext());
-
         initFields();
+
+        //this is the last step of initialization
+        FormContext.getInstance().init(getApplicationContext());
     }
 
     private final void initFields(){
@@ -45,4 +47,5 @@ public class FormDroidApp extends Application{
     protected boolean registerReplaceViewControllers(final List<Class<? extends AbsInputFieldViewController>> vCtrls){
         return false;
     }
+
 }
