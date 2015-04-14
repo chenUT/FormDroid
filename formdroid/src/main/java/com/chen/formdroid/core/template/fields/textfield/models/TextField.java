@@ -6,6 +6,7 @@ import android.util.Log;
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.utils.StringUtils;
 
 /**
  * Created by chen on 3/29/15.
@@ -13,8 +14,7 @@ import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 @InputField(type = "text")
 public class TextField extends AbsInputField<CharSequence>{
 
-    static{
-        Log.d("formDroid", "TextField");
+    public TextField() {
     }
 
     public TextField(String fieldId) {
@@ -22,12 +22,12 @@ public class TextField extends AbsInputField<CharSequence>{
     }
 
     @Override
-    protected CharSequence getValue() {
+    public CharSequence getValue() {
         return this.value;
     }
 
     @Override
-    protected void setValue(CharSequence o) {
+    public void setValue(CharSequence o) {
         if (o == null) {
             this.value = o;
         } else {
@@ -36,7 +36,13 @@ public class TextField extends AbsInputField<CharSequence>{
     }
 
     @Override
-    protected AbsInputFieldViewController getViewController(Fragment frag) {
+    public AbsInputFieldViewController getViewController(Fragment frag) {
         return null;
     }
+
+    @Override
+    public boolean isEmpty(){
+        return StringUtils.isEmpty(value);
+    }
 }
+

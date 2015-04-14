@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
+import com.chen.formdroid.core.template.fields.textfield.models.TextField;
 import com.chen.formdroid.exceptions.InputFieldTypeMismatchException;
 import com.chen.formdroid.utils.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +37,7 @@ public final class InputFieldFactory {
         }
         Annotation annotation = fieldClass.getAnnotation(InputField.class);
         InputField fieldAnnotation = (InputField)annotation;
-        String fieldTypeKey = fieldAnnotation.Type();
+        String fieldTypeKey = fieldAnnotation.type();
         if(StringUtils.isEmptyOrWhiteSpace((fieldTypeKey))){
             //by default json key is class name without field in lower case
             String className = fieldClass.getSimpleName();
@@ -91,10 +92,10 @@ public final class InputFieldFactory {
         return null;
     }
 
+    //register internal fields
     static{
-        Log.d("formDroid", "registering internal components");
         registerField(LabelField.class);
-        Log.d("formDroid", "end registering internal components");
+        registerField(TextField.class);
     }
 
     //static block will be executed when this is called.

@@ -2,12 +2,19 @@ package com.chen.formdroid.core.template.fields;
 
 import android.support.v4.app.Fragment;
 
-import com.chen.formdroid.core.annotations.InputField;
+import com.chen.formdroid.FormContext;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chen on 3/27/15.
@@ -20,17 +27,47 @@ import java.lang.reflect.InvocationTargetException;
 )
 public abstract class AbsInputField<T> {
     //id of this field
+    @JsonProperty
     private final String fieldId;
     //position id indicate the position of this field in the form structure
+    @JsonProperty
     private String posId;
-
     //top level properties
+    @JsonProperty
     private String name;
-    private boolean enabled;
-    private boolean required;
+
+    @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private boolean enabled = true;
+    @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private boolean required = false;
     //if allow empty, the field will be carried as part of the result object regardless of its content value
-    private boolean allowEmpty;
-    private boolean visible;
+    @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private boolean allowEmpty = false;
+    @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private boolean visible = true;
+
+    @JsonProperty
+    private List<AbsInputField> fields;
+
+    public List<AbsInputField> getFields() {
+        return fields;
+    }
+
+    public void addField(AbsInputField field){
+        //lazy init
+        if(fields == null){
+            this.fields = new ArrayList<>();
+        }
+        this.fields.add(field);
+    }
+
+    public void setFields(List<AbsInputField> fields) {
+        this.fields = fields;
+    }
 
     public String getPosId() {
         return posId;
@@ -85,15 +122,34 @@ public abstract class AbsInputField<T> {
     }
 
     //value of this field
+    @JsonProperty
     protected T value;
 
-    //field must have an Id
-    public AbsInputField(String fieldId){
-        this.name = "";
-        this.required=false;
-        this.allowEmpty = false;
-        this.enabled = true;
+    // field must have an Id
+    // otherwise return null
+    // TODO how to check this?
+    // this is a must in order to get jackson working
+    public AbsInputField(){
+        this("");
+    }
+
+    @JsonCreator
+    public AbsInputField(@JsonProperty("fieldId") String fieldId){
         this.fieldId = fieldId;
+    }
+
+    public String toJsonString(){
+        try {
+            return FormContext.getMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @JsonIgnore
+    public boolean isEmpty(){
+        return value == null;
     }
 
     //view engine fragment will call this to get correct viewcontroller
@@ -165,8 +221,8 @@ public abstract class AbsInputField<T> {
 //    }
 
     //-----------  abstract methods -----------------
-    protected abstract Object getValue();
-    protected abstract void setValue(T o);
+    public abstract Object getValue();
+    public abstract void setValue(T o);
 
-    protected abstract AbsInputFieldViewController getViewController(Fragment frag);
+    public abstract AbsInputFieldViewController getViewController(Fragment frag);
 }

@@ -1,26 +1,57 @@
 package com.chen.formdroid.core.template.fields;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 
 /**
  * Created by chen on 3/29/15.
  */
-public abstract class AbsInputFieldViewController {
-    private final AbsInputField mField;
+public abstract class AbsInputFieldViewController<T extends AbsInputField> {
+    private final T field;
     //keep a reference of the current fragment
     private final Fragment mFrag;
 
     //inject inputField(model) to view controller
-    public AbsInputFieldViewController(AbsInputField field, Fragment frag){
-        this.mField = field;
+    public AbsInputFieldViewController(T field, Fragment frag){
+        this.field = field;
         this.mFrag = frag;
     }
 
-    public final View getViewInternal(){
-        return getView(mField, mFrag );
+    protected Activity getActivity(){
+        return this.mFrag.getActivity();
     }
 
-    protected abstract View getView(AbsInputField mField, Fragment mFrag);
+    protected Context getContext(){
+        return this.mFrag.getActivity().getApplicationContext();
+    }
+
+    protected Fragment getFragment(){
+        return this.mFrag;
+    }
+
+    protected LayoutInflater getInflator(){
+        return (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public final View getViewInternal(){
+        return getView(field, mFrag );
+    }
+
+    protected final T getField(){
+        return this.field;
+    }
+
+
+    /**
+     * Methods meant to be override
+     */
+    public void onViewDestroy(){}
+
+    public abstract View getView(AbsInputField mField, Fragment mFrag);
+    //call this if the value of the underlining datamodel changed was not through view
+    public abstract void validateView();
 }

@@ -11,12 +11,15 @@ import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 @InputField(type ="label")
 public class LabelField extends TextField{
 
+    public LabelField() {
+    }
+
     public LabelField(String fieldId) {
         super(fieldId);
     }
 
     @Override
-    protected AbsInputFieldViewController getViewController(Fragment frag) {
+    public AbsInputFieldViewController getViewController(Fragment frag) {
         return null;
     }
 }

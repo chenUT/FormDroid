@@ -12,10 +12,10 @@ import com.chen.fromdroid.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PageRootFragment#newInstance} factory method to
+ * Use the {@link FormFragmentFactory#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PageRootFragment extends Fragment {
+public class FormFragmentFactory extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,8 +35,8 @@ public class PageRootFragment extends Fragment {
      * @return A new instance of fragment PageRootFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PageRootFragment newInstance(String param1, String param2) {
-        PageRootFragment fragment = new PageRootFragment();
+    public static FormFragmentFactory newInstance(String param1, String param2) {
+        FormFragmentFactory fragment = new FormFragmentFactory();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -44,7 +44,7 @@ public class PageRootFragment extends Fragment {
         return fragment;
     }
 
-    public PageRootFragment() {
+    public FormFragmentFactory() {
         // Required empty public constructor
     }
 
