@@ -1,16 +1,36 @@
-package com.chen.formdroid;
+package com.chen.app;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity {
+import com.chen.formdroid.core.fragments.FormCoreFragment;
+import com.chen.formdroid.core.template.form.Form;
+import com.chen.formdroid.core.template.form.FormFactory;
+
+public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String jsonStr = "{\"formId\":\"a\", \"required\":true, \"fields\":[ {\"@type\":\"text\",\"fieldId\":\"fa\"},{\"@type\":\"text\",\"fieldId\":\"fb\",\"name\":\"labelb\"}]}";
+
+        Log.d("test","1");
+        Form f = FormFactory.newFormByJson(jsonStr);
+        Log.d("test","2");
+        Fragment temp = FormCoreFragment.newInstance(f.getFormId());
+
+        Log.d("test","3");
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame, temp)
+                .addToBackStack("temp_form")
+                .commit();
+
+        Log.d("test","4");
     }
 
 

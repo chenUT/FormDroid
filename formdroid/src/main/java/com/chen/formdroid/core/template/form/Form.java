@@ -2,8 +2,6 @@ package com.chen.formdroid.core.template.form;
 
 import com.chen.formdroid.FormContext;
 import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.utils.StringUtils;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -27,6 +24,9 @@ public class Form {
     @JsonProperty
     private String formId = UUID.randomUUID().toString();
 
+    @JsonIgnore
+    private long formDbId;
+
     @JsonProperty
     private List<AbsInputField> fields;
 
@@ -40,6 +40,14 @@ public class Form {
 
     public String getFormId() {
         return formId;
+    }
+
+    public long getFormDbId() {
+        return formDbId;
+    }
+
+    public void setFormDbId(long formDBId) {
+        this.formDbId = formDBId;
     }
 
     public List<AbsInputField> getFields() {

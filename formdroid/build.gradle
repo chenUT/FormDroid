@@ -1,13 +1,12 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -17,18 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    compile 'com.android.support:appcompat-v7:22.1.1'
     //jackson library
-    compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.1'
-    compile 'com.android.support:support-v4:21.0.3'
 }

@@ -35,7 +35,6 @@ public abstract class AbsInputField<T> {
     //top level properties
     @JsonProperty
     private String name;
-
     @JsonProperty
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private boolean enabled = true;
@@ -55,6 +54,15 @@ public abstract class AbsInputField<T> {
 
     public List<AbsInputField> getFields() {
         return fields;
+    }
+
+    public AbsInputField getFieldById(String fieldId){
+        for(AbsInputField field : fields){
+            if(field.getFieldId().equals(fieldId)){
+                return field;
+            }
+        }
+        return null;
     }
 
     public void addField(AbsInputField field){
@@ -165,17 +173,15 @@ public abstract class AbsInputField<T> {
                Constructor<?> cons = replaceClass.getConstructor(args);
                Object[] arguments = {this, frag};
                return (AbsInputFieldViewController)cons.newInstance(arguments);
-           } catch (NoSuchMethodException e) {
+           } catch (NullPointerException e){
                e.printStackTrace();
-           } catch (IllegalArgumentException e) {
+           } catch (InvocationTargetException e) {
                e.printStackTrace();
            } catch (InstantiationException e) {
                e.printStackTrace();
            } catch (IllegalAccessException e) {
                e.printStackTrace();
-           } catch (InvocationTargetException e) {
-               e.printStackTrace();
-           } catch (NullPointerException e){
+           } catch (NoSuchMethodException e) {
                e.printStackTrace();
            }
        }
@@ -221,8 +227,8 @@ public abstract class AbsInputField<T> {
 //    }
 
     //-----------  abstract methods -----------------
-    public abstract Object getValue();
+    public abstract T getValue();
     public abstract void setValue(T o);
-
+    public abstract boolean clear();
     public abstract AbsInputFieldViewController getViewController(Fragment frag);
 }

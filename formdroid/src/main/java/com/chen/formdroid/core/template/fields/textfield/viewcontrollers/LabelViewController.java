@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
-import com.chen.formdroid.core.template.fields.textfield.models.TextField;
 
 /**
  * Created by chen on 3/29/15.

@@ -1,7 +1,5 @@
 package com.chen.formdroid.core.template.fields;
 
-import android.util.Log;
-
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
 import com.chen.formdroid.core.template.fields.textfield.models.TextField;

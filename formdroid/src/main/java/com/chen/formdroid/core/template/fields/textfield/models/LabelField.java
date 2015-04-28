@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.LabelViewController;
 
 /**
  * Created by chen on 3/27/15.
@@ -20,6 +21,6 @@ public class LabelField extends TextField{
 
     @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {
-        return null;
+        return new LabelViewController(this, frag);
     }
 }

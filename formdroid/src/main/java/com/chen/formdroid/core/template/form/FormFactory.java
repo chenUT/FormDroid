@@ -1,7 +1,6 @@
 package com.chen.formdroid.core.template.form;
 
 import com.chen.formdroid.FormContext;
-import com.chen.formdroid.utils.StringUtils;
 
 import java.io.IOException;
 
@@ -14,11 +13,12 @@ public class FormFactory {
     public static Form newFormByJson(String jsonStr){
         try {
             Form form = FormContext.getMapper().readValue(jsonStr, Form.class);
+            //register in global cache
+            FormContext.getInstance().addFormCache(form);
             return form;
         } catch (IOException e) {
             e.printStackTrace();
             String error = e.getMessage();
-
             return null;
         }
     }

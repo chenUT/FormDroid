@@ -1,6 +1,5 @@
 package com.chen.formdroid.core.template.fields;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -11,13 +10,15 @@ import android.view.View;
  * Created by chen on 3/29/15.
  */
 public abstract class AbsInputFieldViewController<T extends AbsInputField> {
-    private final T field;
+    private final T mField;
     //keep a reference of the current fragment
     private final Fragment mFrag;
 
+    private int mViewId;
+
     //inject inputField(model) to view controller
     public AbsInputFieldViewController(T field, Fragment frag){
-        this.field = field;
+        this.mField = field;
         this.mFrag = frag;
     }
 
@@ -33,18 +34,27 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         return this.mFrag;
     }
 
-    protected LayoutInflater getInflator(){
+    protected LayoutInflater getInflater(){
         return (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public final View getViewInternal(){
-        return getView(field, mFrag );
+    public final View getViewInternal(int viewId){
+        View tmpView = getView(mField, mFrag );
+        tmpView.setId(viewId);
+        return tmpView;
     }
 
     protected final T getField(){
-        return this.field;
+        return this.mField;
     }
 
+    public int getViewId() {
+        return mViewId;
+    }
+
+    public void setViewId(int mViewId) {
+        this.mViewId = mViewId;
+    }
 
     /**
      * Methods meant to be override

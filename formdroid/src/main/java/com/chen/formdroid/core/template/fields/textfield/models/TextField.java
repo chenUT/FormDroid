@@ -1,18 +1,18 @@
 package com.chen.formdroid.core.template.fields.textfield.models;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.TextViewController;
 import com.chen.formdroid.utils.StringUtils;
 
 /**
  * Created by chen on 3/29/15.
  */
 @InputField(type = "text")
-public class TextField extends AbsInputField<CharSequence>{
+public class TextField extends AbsInputField<CharSequence> {
 
     public TextField() {
     }
@@ -36,8 +36,14 @@ public class TextField extends AbsInputField<CharSequence>{
     }
 
     @Override
+    public boolean clear() {
+        this.value = "";
+        return false;
+    }
+
+    @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {
-        return null;
+        return new TextViewController(this, frag);
     }
 
     @Override

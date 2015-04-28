@@ -5,7 +5,6 @@ import android.app.Application;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.InputFieldFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -39,10 +38,20 @@ public class FormDroidApp extends Application{
         }
     }
 
+    /**
+     * override to register addition fields
+     * @param fields
+     * @return
+     */
     protected boolean registerAllFields(final List<Class<? extends AbsInputField>> fields){
         return false;
     }
 
+    /**
+     * override to register viewcontroller which extends existing controller with existing inputfield
+     * @param vCtrls
+     * @return
+     */
     protected boolean registerReplaceViewControllers(final List<Class<? extends AbsInputFieldViewController>> vCtrls){
         return false;
     }
