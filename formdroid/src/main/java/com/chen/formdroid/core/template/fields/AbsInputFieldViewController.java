@@ -28,7 +28,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     protected Context getContext(){
-        return this.mFrag.getActivity();
+        return this.mFrag.getActivity().getApplicationContext();
     }
 
     protected Fragment getFragment(){
@@ -37,7 +37,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
 
     protected LayoutInflater getInflater(){
 //        return (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return LayoutInflater.from(getContext());
+        return LayoutInflater.from(getActivity());
     }
 
     public final View getViewInternal(int viewId){
