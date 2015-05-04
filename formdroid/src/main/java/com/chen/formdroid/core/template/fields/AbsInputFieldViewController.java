@@ -3,6 +3,7 @@ package com.chen.formdroid.core.template.fields;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -27,7 +28,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     protected Context getContext(){
-        return this.mFrag.getActivity().getApplicationContext();
+        return this.mFrag.getActivity();
     }
 
     protected Fragment getFragment(){
@@ -35,7 +36,8 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     protected LayoutInflater getInflater(){
-        return (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        return (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return LayoutInflater.from(getContext());
     }
 
     public final View getViewInternal(int viewId){
