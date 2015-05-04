@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.chen.app"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -17,17 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    android {
-        packagingOptions {
-            exclude 'META-INF/LICENSE'
-            exclude 'META-INF/NOTICE'
-        }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.squareup:otto:1.3.6'
+    compile 'com.android.support:appcompat-v7:22.1.1'
     compile project(":formdroid")
-    compile project(":formdroidcompiler")
 }

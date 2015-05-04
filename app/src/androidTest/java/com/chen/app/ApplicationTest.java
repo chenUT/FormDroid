@@ -1,4 +1,4 @@
-package com.chen.formdroid;
+package com.chen.app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

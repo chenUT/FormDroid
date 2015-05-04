@@ -1,1 +1,1 @@
-include ':app', ':formdroid', ':formdroidcompiler'
+include ':app', ':formdroid'
