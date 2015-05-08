@@ -39,7 +39,7 @@ public class FormDroidApp extends Application{
     }
 
     /**
-     * override to register addition fields
+     * Override to register addition fields
      * @param fields
      * @return
      */
@@ -48,7 +48,7 @@ public class FormDroidApp extends Application{
     }
 
     /**
-     * override to register viewcontroller which extends existing controller with existing inputfield
+     * Override to register viewcontroller which extends existing controller with existing inputfield
      * @param vCtrls
      * @return
      */

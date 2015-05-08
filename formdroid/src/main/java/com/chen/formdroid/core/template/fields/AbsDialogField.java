@@ -5,8 +5,7 @@ import java.util.List;
 /**
  * Created by chen on 4/22/15.
  */
-public abstract class AbsDialogField extends AbsInputField<List<AbsInputField>>{
-
+public abstract class AbsDialogField extends AbsCompositeField<List<AbsInputField>>{
     @Override
     public boolean clear() {
         for(AbsInputField resultField : super.value){

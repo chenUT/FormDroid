@@ -6,6 +6,12 @@ import android.support.v4.app.Fragment;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.chen.formdroid.R;
+import com.chen.formdroid.core.annotations.InputField;
+import com.chen.formdroid.utils.StringUtils;
 
 /**
  * Created by chen on 3/29/15.
@@ -23,7 +29,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         this.mFrag = frag;
     }
 
-    protected Activity getActivity(){
+    private Activity getActivity(){
         return this.mFrag.getActivity();
     }
 
@@ -31,7 +37,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         return this.mFrag.getActivity().getApplicationContext();
     }
 
-    protected Fragment getFragment(){
+    private Fragment getFragment(){
         return this.mFrag;
     }
 
@@ -41,7 +47,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     public final View getViewInternal(int viewId){
-        View tmpView = getView(mField, mFrag );
+        View tmpView = getView(mField, mFrag);
         tmpView.setId(viewId);
         return tmpView;
     }
@@ -59,11 +65,51 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     /**
-     * Methods meant to be override
+     * By default validate view through logic will reinitialize the value in view
+     */
+    public void invalidateView(T field){
+        initViewValue(field);
+    }
+
+    /**
+     * This is called when view is destroyed
      */
     public void onViewDestroy(){}
 
-    public abstract View getView(AbsInputField mField, Fragment mFrag);
-    //call this if the value of the underlining datamodel changed was not through view
-    public abstract void validateView();
+    /**
+     * This is a not editable view for show up purpose only
+     * By default, this returns a textview in the format of {@link AbsInputField}.getName(): {@link AbsInputField}.getValue().toString()
+     * @return
+     */
+    public final View getDisplayView(){
+        View root = getDisplayView(getField(), getFragment());
+        if(root != null){
+            return root;
+        }
+        root = getInflater().inflate(R.layout.inputfield_displayview_default, (ViewGroup) mFrag.getView(), false);
+        TextView text = (TextView)root.findViewById(R.id.inputfield_displayview_text);
+        if(StringUtils.isEmptyOrWhiteSpace(mField.getName())){
+            text.setText(mField.getValue().toString());
+        }
+        else{
+            text.setText(mField.getName()+": "+mField.getValue().toString());
+        }
+        return root;
+    }
+
+    /**
+     * subclass can override this for customized behavior
+     * @param field
+     * @param frag
+     * @return
+     */
+    protected View getDisplayView(T field, Fragment frag){
+        return null;
+    }
+
+    public abstract View getView(T field, Fragment frag);
+    /**
+     * Override this method to initialize the value in views
+     */
+    protected abstract void initViewValue(T field);
 }

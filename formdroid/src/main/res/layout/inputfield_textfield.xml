@@ -6,7 +6,6 @@
 
     <EditText
         android:id="@+id/textfield_edit_text"
-        style="@android:style/Widget.Holo.Light.EditText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="10"

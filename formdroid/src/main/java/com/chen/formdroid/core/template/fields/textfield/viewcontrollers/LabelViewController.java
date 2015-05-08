@@ -2,11 +2,15 @@ package com.chen.formdroid.core.template.fields.textfield.viewcontrollers;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chen.formdroid.R;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by chen on 3/29/15.
@@ -20,14 +24,16 @@ public class LabelViewController extends AbsInputFieldViewController<LabelField>
     }
 
     @Override
-    public View getView(AbsInputField mField, Fragment mFrag) {
-        return null;
+    public View getView(LabelField field, Fragment frag) {
+        LinearLayout wrapper =(LinearLayout) getInflater().inflate(R.layout.inputfield_labelfield, null, false);
+        mTextView = (TextView)wrapper.findViewById(R.id.textfield_label);
+        return mTextView;
     }
 
     @Override
-    public void validateView() {
+    protected void initViewValue(LabelField field){
         if(mTextView != null) {
-            mTextView.setText(getField().getValue());
+            mTextView.setText(field.getValue());
         }
     }
 }

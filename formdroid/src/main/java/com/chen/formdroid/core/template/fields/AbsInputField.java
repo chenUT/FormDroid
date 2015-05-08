@@ -49,34 +49,6 @@ public abstract class AbsInputField<T> {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private boolean visible = true;
 
-    @JsonProperty
-    private List<AbsInputField> fields;
-
-    public List<AbsInputField> getFields() {
-        return fields;
-    }
-
-    public AbsInputField getFieldById(String fieldId){
-        for(AbsInputField field : fields){
-            if(field.getFieldId().equals(fieldId)){
-                return field;
-            }
-        }
-        return null;
-    }
-
-    public void addField(AbsInputField field){
-        //lazy init
-        if(fields == null){
-            this.fields = new ArrayList<>();
-        }
-        this.fields.add(field);
-    }
-
-    public void setFields(List<AbsInputField> fields) {
-        this.fields = fields;
-    }
-
     public String getPosId() {
         return posId;
     }

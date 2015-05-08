@@ -1,4 +1,4 @@
-package com.chen.formdroid.core.template.fields.textfield.models;
+package com.chen.formdroid.core.template.fields.dialogfield.models;
 
 
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.AbsDialogField;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers.DialogFieldViewController;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -38,7 +39,6 @@ public class DialogField extends AbsDialogField {
 
     @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {
-//        return new DialogFieldViewController(this,frag);
-        return null;
+        return new DialogFieldViewController(this,frag);
     }
 }

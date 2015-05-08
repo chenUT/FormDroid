@@ -7,12 +7,16 @@ import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.TextViewController;
 import com.chen.formdroid.utils.StringUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by chen on 3/29/15.
  */
 @InputField(type = "text")
 public class TextField extends AbsInputField<CharSequence> {
+
+    @JsonProperty
+    private String hint;
 
     public TextField() {
     }
@@ -49,6 +53,18 @@ public class TextField extends AbsInputField<CharSequence> {
     @Override
     public boolean isEmpty(){
         return StringUtils.isEmpty(value);
+    }
+
+    public boolean hasHint(){
+        return !StringUtils.isEmptyOrWhiteSpace(hint);
+    }
+
+    public String getHint(){
+        return this.hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 }
 

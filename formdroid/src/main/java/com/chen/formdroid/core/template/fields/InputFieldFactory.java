@@ -1,6 +1,7 @@
 package com.chen.formdroid.core.template.fields;
 
 import com.chen.formdroid.core.annotations.InputField;
+import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
 import com.chen.formdroid.core.template.fields.textfield.models.TextField;
 import com.chen.formdroid.exceptions.InputFieldTypeMismatchException;
@@ -94,6 +95,11 @@ public final class InputFieldFactory {
     static{
         registerField(LabelField.class);
         registerField(TextField.class);
+        registerField(DialogField.class);
+
+        //TODO do we register abstract type?
+//        registerField(AbsDialogField.class);
+//        registerField(AbsCompositeField.class);
     }
 
     //static block will be executed when this is called.
