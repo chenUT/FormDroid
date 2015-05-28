@@ -102,10 +102,16 @@ public class FormCoreFragment extends Fragment {
         this.mViewControllerList = null;
     }
 
-    //this task is used to create view from each viewcontroller in background
+    /**
+     *this task is used to create view from each viewcontroller in background
+     */
     private class CreateViewTask extends AsyncTask<Void, Void, Void>{
         private List<Integer> mViewIdList;
-        //for safety reason we inflate all the views in UI thread
+
+        /**
+         *  for safety reason we inflate all the views in UI thread,
+         *  this is done after all the viewcontrollers have been created
+         */
         @Override
         protected void onPostExecute(Void aVoid) {
             mViewIdList = new ArrayList<>();
@@ -129,7 +135,7 @@ public class FormCoreFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             //first fill the viewControllerList
             for(AbsInputField field : mForm.getFields()){
-                AbsInputFieldViewController ctrl = field.getViewController(FormCoreFragment.this);
+                AbsInputFieldViewController ctrl = field.getViewControllerInternal(FormCoreFragment.this);
                 if(ctrl != null) {
                     mViewControllerList.add(ctrl);
                     //register controller to otto bus

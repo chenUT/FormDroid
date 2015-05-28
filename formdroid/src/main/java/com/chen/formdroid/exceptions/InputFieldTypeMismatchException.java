@@ -7,4 +7,8 @@ public class InputFieldTypeMismatchException extends RuntimeException{
     public InputFieldTypeMismatchException(){
         super("Input field must be a instanceof AbsInputField");
     }
+
+    public InputFieldTypeMismatchException(String info){
+        super(info);
+    }
 }

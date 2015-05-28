@@ -9,6 +9,16 @@ import java.util.List;
  * Created by chen on 4/20/15.
  */
 public abstract class AbsCompositeField<T> extends AbsInputField<T>{
+
+    public AbsCompositeField(String fieldId, AbsCompositeField field) {
+        super(fieldId, field);
+        List<AbsInputField> fields = field.getFields();
+        for (int i = 0; i < fields.size(); i++) {
+            AbsInputField tmp = fields.get(i);
+            fields.add(tmp.cloneWithNewId(fieldId+"#"+i));
+        }
+    }
+
     @JsonProperty
     private List<AbsInputField> fields;
 

@@ -13,8 +13,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by chen on 3/27/15.
@@ -113,6 +111,25 @@ public abstract class AbsInputField<T> {
         this("");
     }
 
+    /**
+     * clone constructor
+     * @param fieldId
+     * @param field
+     */
+    @JsonIgnore
+    protected AbsInputField(String fieldId, AbsInputField field){
+        this.fieldId = fieldId;
+        this.allowEmpty = field.isAllowEmpty();
+        this.name = field.getName();
+        this.enabled = field.isEnabled();
+        this.required = field.isRequired();
+        this.visible = field.isVisible();
+        this.posId = field.getPosId();
+
+        //TODO should we move this to a abstract method?
+        this.value = (T)field.getValue();
+    }
+
     @JsonCreator
     public AbsInputField(@JsonProperty("fieldId") String fieldId){
         this.fieldId = fieldId;
@@ -200,7 +217,9 @@ public abstract class AbsInputField<T> {
 
     //-----------  abstract methods -----------------
     public abstract T getValue();
+    public abstract AbsInputField<T> cloneWithNewId(String fieldId);
     public abstract void setValue(T o);
     public abstract boolean clear();
+
     public abstract AbsInputFieldViewController getViewController(Fragment frag);
 }

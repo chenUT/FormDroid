@@ -2,6 +2,8 @@ package com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,13 @@ import android.widget.LinearLayout;
 
 import com.chen.formdroid.R;
 import com.chen.formdroid.core.annotations.InputField;
+import com.chen.formdroid.core.template.fields.AbsCompositeField;
 import com.chen.formdroid.core.template.fields.AbsDialogField;
 import com.chen.formdroid.core.template.fields.AbsDialogFieldViewController;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
+import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
+import com.chen.formdroid.utils.StringUtils;
 
 import java.util.List;
 
@@ -26,12 +31,15 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     @Override
-    public View getResultView(DialogField field, int resultIndex) {
+    public View getResultItemView(DialogResultItem item, int resultIndex) {
         return null;
     }
 
     @Override
-    public void onDialogResult(Intent data, int requestCode, int resultCode) {
+    public void onDialogResult(@Nullable DialogField field, int requestCode, int resultCode) {
+        if(RESULT_CODE_SUCCESS == resultCode) {
+
+        }
     }
 
     @Override
@@ -44,14 +52,25 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
 
         //results view
         LinearLayout resultWrapper = (LinearLayout)rootView.findViewById(R.id.dialog_result_wrapper);
-        for(AbsInputField result : mField.getValue()){
-            resultWrapper.addView(result.getViewController(mFrag).getDisplayView());
-        }
+
         return rootView;
     }
 
     @Override
     protected void initViewValue(DialogField field) {
+    }
 
+    /**
+     *
+     * @param data
+     * @return true data has been updated
+     *          false data fail to update
+     */
+    private boolean updateFieldData(DialogField field, DialogResultItem data){
+        //if its an update we do the update other we add back to result
+        for (DialogResultItem value : field.getValue()) {
+                return true;
+        }
+        return false;
     }
 }

@@ -21,6 +21,11 @@ public class TextField extends AbsInputField<CharSequence> {
     public TextField() {
     }
 
+    public TextField(String fieldId, TextField field) {
+        super(fieldId, field);
+        this.hint = field.getHint();
+    }
+
     public TextField(String fieldId) {
         super(fieldId);
     }
@@ -28,6 +33,11 @@ public class TextField extends AbsInputField<CharSequence> {
     @Override
     public CharSequence getValue() {
         return this.value;
+    }
+
+    @Override
+    public AbsInputField<CharSequence> cloneWithNewId(String fieldId) {
+        return new TextField(fieldId, this);
     }
 
     @Override

@@ -17,8 +17,14 @@ import com.chen.formdroid.utils.StringUtils;
  * Created by chen on 3/29/15.
  */
 public abstract class AbsInputFieldViewController<T extends AbsInputField> {
+
+    /**
+     * keep a reference to the injected field
+     */
     private final T mField;
-    //keep a reference of the current fragment
+    /**
+     *  keep a reference of the current fragment
+     */
     private final Fragment mFrag;
 
     private int mViewId;
@@ -37,7 +43,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         return this.mFrag.getActivity().getApplicationContext();
     }
 
-    private Fragment getFragment(){
+    protected Fragment getFragment(){
         return this.mFrag;
     }
 
@@ -47,6 +53,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     public final View getViewInternal(int viewId){
+        setViewId(viewId);
         View tmpView = getView(mField, mFrag);
         tmpView.setId(viewId);
         return tmpView;
@@ -60,7 +67,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         return mViewId;
     }
 
-    public void setViewId(int mViewId) {
+    private void setViewId(int mViewId) {
         this.mViewId = mViewId;
     }
 

@@ -3,4 +3,7 @@
 
     <!--Dialog view-->
     <string name="dialog_button_place_holder">Add</string>
+    <string name="dialog_positive_button">Done</string>
+    <string name="dialog_cancel_button">Cancel</string>
+    <string name="dialog_neutral_button">Clear</string>
 </resources>

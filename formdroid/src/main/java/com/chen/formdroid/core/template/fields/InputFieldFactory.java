@@ -1,5 +1,7 @@
 package com.chen.formdroid.core.template.fields;
 
+import android.support.v4.app.Fragment;
+
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
@@ -25,8 +27,6 @@ public final class InputFieldFactory {
 
     //cache to store possible overridden viewcontroller
     private static final Map<String, Class<? extends AbsInputFieldViewController>> _fieldReplaceViewControllerMap = new ConcurrentHashMap<>();
-
-    private InputFieldFactory(){}
 
     static void registerField(final Class<? extends AbsInputField> fieldClass) throws InputFieldTypeMismatchException {
         //first check if this is a inputfield type
