@@ -111,31 +111,12 @@ public abstract class AbsInputField<T> {
         this("");
     }
 
-    /**
-     * clone constructor
-     * @param fieldId
-     * @param field
-     */
-    @JsonIgnore
-    protected AbsInputField(String fieldId, AbsInputField field){
-        this.fieldId = fieldId;
-        this.allowEmpty = field.isAllowEmpty();
-        this.name = field.getName();
-        this.enabled = field.isEnabled();
-        this.required = field.isRequired();
-        this.visible = field.isVisible();
-        this.posId = field.getPosId();
-
-        //TODO should we move this to a abstract method?
-        this.value = (T)field.getValue();
-    }
-
     @JsonCreator
     public AbsInputField(@JsonProperty("fieldId") String fieldId){
         this.fieldId = fieldId;
     }
 
-    public String toJsonString(){
+    public String toJsonString() {
         try {
             return FormContext.getMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) {
@@ -149,7 +130,20 @@ public abstract class AbsInputField<T> {
         return value == null;
     }
 
+    @JsonIgnore
+    public final AbsInputField<T> clone(String fieldId){
+        AbsInputField result = cloneWithNewId(fieldId);
+        result.allowEmpty = this.isAllowEmpty();
+        result.name = this.getName();
+        result.enabled = this.isEnabled();
+        result.required = this.isRequired();
+        result.visible = this.isVisible();
+        result.posId = this.getPosId();
+        return result;
+    }
+
     //view engine fragment will call this to get correct viewcontroller
+    @JsonIgnore
     public final AbsInputFieldViewController getViewControllerInternal(Fragment frag){
        AbsInputFieldViewController vCtrl = getViewController(frag);
        Class<? extends AbsInputFieldViewController> replaceClass = getReplaceViewControllerClass(vCtrl);
@@ -183,6 +177,7 @@ public abstract class AbsInputField<T> {
         Class<? extends AbsInputFieldViewController> newVCtrlClass = InputFieldFactory.getReplaceViewController(vCtrlName);
         return newVCtrlClass;
     }
+
 //    public void fillByJSON(JSONObject tempFieldObj){
 //        try {
 //            Iterator<?> keys = tempFieldObj.keys();
@@ -217,9 +212,9 @@ public abstract class AbsInputField<T> {
 
     //-----------  abstract methods -----------------
     public abstract T getValue();
-    public abstract AbsInputField<T> cloneWithNewId(String fieldId);
     public abstract void setValue(T o);
     public abstract boolean clear();
-
     public abstract AbsInputFieldViewController getViewController(Fragment frag);
+
+    protected abstract AbsInputField<T> cloneWithNewId(String fieldId);
 }

@@ -13,47 +13,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by chen on 3/29/15.
  */
 @InputField(type = "text")
-public class TextField extends AbsInputField<CharSequence> {
+public class TextField extends LabelField {
 
     @JsonProperty
     private String hint;
-
-    public TextField() {
-    }
-
-    public TextField(String fieldId, TextField field) {
-        super(fieldId, field);
-        this.hint = field.getHint();
-    }
 
     public TextField(String fieldId) {
         super(fieldId);
     }
 
-    @Override
-    public CharSequence getValue() {
-        return this.value;
-    }
+
 
     @Override
     public AbsInputField<CharSequence> cloneWithNewId(String fieldId) {
-        return new TextField(fieldId, this);
+        TextField field = new TextField(fieldId);
+        field.setHint(this.hint);
+        return field;
     }
 
-    @Override
-    public void setValue(CharSequence o) {
-        if (o == null) {
-            this.value = o;
-        } else {
-            this.value = String.valueOf(o);
-        }
-    }
 
-    @Override
-    public boolean clear() {
-        this.value = "";
-        return false;
-    }
 
     @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {

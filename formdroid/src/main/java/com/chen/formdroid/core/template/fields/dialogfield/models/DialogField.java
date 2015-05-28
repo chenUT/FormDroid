@@ -25,16 +25,8 @@ public class DialogField extends AbsDialogField {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public boolean mutable = true;
 
-    public DialogField(String fieldId, DialogField field) {
-        super(fieldId, field);
-        //replace the value with deep cloned values
-        List<DialogResultItem> newResult = new ArrayList<>();
-        for(int i = 0; i < field.getValue().size(); i++){
-            DialogResultItem tmp = getValue().get(i);
-            //should result has an id?
-//            newResult.add((DialogResultItem)tmp.cloneWithNewId(fieldId+"#"+i));
-            newResult.add((DialogResultItem)tmp.clone());
-        }
+    public DialogField(String fieldId) {
+        super(fieldId);
     }
 
     @Override
@@ -59,8 +51,14 @@ public class DialogField extends AbsDialogField {
 
     @Override
     public AbsInputField<List<DialogResultItem>> cloneWithNewId(String fieldId) {
-        DialogField field = new DialogField(fieldId, this);
-        return field;
+        DialogField result = new DialogField(fieldId);
+        //clone the fields
+        for(int i =0; i< getFields().size(); i++){
+            AbsInputField tmp = getFields().get(i);
+            AbsInputField cloned = tmp.clone(fieldId+"#"+i);
+            result.addField(getFields().get(i));
+        }
+        return result;
     }
 
     @Override

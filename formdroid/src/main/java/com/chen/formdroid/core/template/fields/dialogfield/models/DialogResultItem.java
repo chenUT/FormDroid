@@ -1,6 +1,8 @@
 package com.chen.formdroid.core.template.fields.dialogfield.models;
 
 import android.app.Dialog;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.chen.formdroid.core.template.fields.AbsInputField;
 
@@ -33,12 +35,5 @@ public class DialogResultItem {
         for(AbsInputField field : resultFields){
             field.clear();
         }
-    }
-
-    //TODO clone this result item
-    public DialogResultItem clone(){
-        DialogResultItem result = new DialogResultItem(this.index);
-
-        return result;
     }
 }

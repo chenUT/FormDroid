@@ -13,8 +13,8 @@ public abstract class AbsDialogField extends AbsCompositeField<List<DialogResult
     @JsonProperty
     public String dialogTitle;
 
-    public AbsDialogField(String fieldId, AbsCompositeField field) {
-        super(fieldId, field);
+    public AbsDialogField(String fieldId) {
+        super(fieldId);
     }
 
     public String getDialogTitle() {

@@ -32,6 +32,11 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
 
     @Override
     public View getResultItemView(DialogResultItem item, int resultIndex) {
+        String result ="";
+        for(AbsInputField f : item.getResultFields()){
+            result += f.toString() +"\n";
+        }
+
         return null;
     }
 
@@ -48,7 +53,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
 
         //open dialog button
         Button button = (Button)rootView.findViewById(R.id.dialog_action);
-
+        button.setOnClickListener(new OpenDialogButtonListener());
 
         //results view
         LinearLayout resultWrapper = (LinearLayout)rootView.findViewById(R.id.dialog_result_wrapper);
@@ -72,5 +77,13 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
                 return true;
         }
         return false;
+    }
+
+    private class OpenDialogButtonListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 }
