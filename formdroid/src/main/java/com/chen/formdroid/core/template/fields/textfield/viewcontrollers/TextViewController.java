@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chen.formdroid.R;
@@ -14,6 +15,8 @@ import com.chen.formdroid.core.template.fields.textfield.models.TextField;
 import com.chen.formdroid.utils.StringUtils;
 
 import org.w3c.dom.Text;
+
+import java.util.ResourceBundle;
 
 /**
  * Created by chen on 3/29/15.
@@ -27,7 +30,7 @@ public class TextViewController extends AbsInputFieldViewController<TextField> {
     }
 
     @Override
-    public View getView(TextField field, Fragment frag) {
+    public View getView(final TextField field, Fragment frag) {
         LinearLayout wrapper;
         if(!StringUtils.isEmptyOrWhiteSpace(getField().getName())){
             wrapper =(LinearLayout) getInflater().inflate(R.layout.inputfield_textfield_label, null, false);
@@ -57,7 +60,7 @@ public class TextViewController extends AbsInputFieldViewController<TextField> {
      * this will be called when this view controller get validated through any logic operation
      */
     @Override
-    protected void initViewValue(TextField field){
+    protected void initViewValue(final TextField field){
         mEditText.setText(field.getValue());
     }
 

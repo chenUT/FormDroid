@@ -6,6 +6,8 @@ import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.LabelViewController;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by chen on 3/27/15.
@@ -13,7 +15,8 @@ import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.LabelVi
 @InputField(type ="label")
 public class LabelField extends AbsInputField<CharSequence> {
 
-    public LabelField(String fieldId) {
+    @JsonCreator
+    public LabelField(@JsonProperty("fieldId")String fieldId) {
         super(fieldId);
     }
 

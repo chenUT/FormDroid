@@ -11,13 +11,28 @@ import com.chen.formdroid.core.fragments.FormCoreFragment;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.core.template.form.FormFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String jsonStr = "{\"formId\":\"a\", \"required\":true, \"fields\":[ {\"@type\":\"text\",\"fieldId\":\"fa\"},{\"@type\":\"text\",\"fieldId\":\"fb\",\"name\":\"labelb\"}]}";
+
+        String jsonStr = "";
+        try {
+            InputStream in = getAssets().open("sample.json");
+
+            byte[] buffer = new byte[in.available()];
+
+            in.read(buffer);
+            in.close();
+            jsonStr = new String(buffer, "UTF-8");
+        }
+        catch(IOException ioe){
+        }
 
         Log.d("test","1");
         Form f = FormFactory.newFormByJson(jsonStr);

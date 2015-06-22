@@ -1,0 +1,20 @@
+{
+  "formId": "a",
+  "required": true,
+  "fields": [
+    {
+      "@type": "text",
+      "fieldId": "fa"
+    },
+    {
+      "@type": "text",
+      "fieldId": "fb",
+      "name": "labelb"
+    },
+    {
+      "@type": "dialog",
+      "fieldId": "da",
+      "name": "dialog"
+    }
+  ]
+}

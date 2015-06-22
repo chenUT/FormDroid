@@ -48,12 +48,17 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     @Override
-    public View getView(DialogField mField, Fragment mFrag) {
+    public View getView(final DialogField mField,Fragment mFrag) {
         LinearLayout rootView =(LinearLayout)getInflater().inflate(R.layout.inputfield_dialog, (ViewGroup) mFrag.getView(), false);
 
         //open dialog button
         Button button = (Button)rootView.findViewById(R.id.dialog_action);
         button.setOnClickListener(new OpenDialogButtonListener());
+        String fieldName = mField.getName();
+        if(!StringUtils.isEmptyOrWhiteSpace(getField().getName())){
+            //TODO get new to something eler
+            button.setText("new "+ getField().getName());
+        }
 
         //results view
         LinearLayout resultWrapper = (LinearLayout)rootView.findViewById(R.id.dialog_result_wrapper);
@@ -62,7 +67,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     @Override
-    protected void initViewValue(DialogField field) {
+    protected void initViewValue(final DialogField field) {
     }
 
     /**

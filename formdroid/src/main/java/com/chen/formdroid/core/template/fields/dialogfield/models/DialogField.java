@@ -10,6 +10,7 @@ import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers.DialogFieldViewController;
 import com.chen.formdroid.utils.StringUtils;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,7 +26,8 @@ public class DialogField extends AbsDialogField {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public boolean mutable = true;
 
-    public DialogField(String fieldId) {
+    @JsonCreator
+    public DialogField(@JsonProperty("fieldId") String fieldId) {
         super(fieldId);
     }
 

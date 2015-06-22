@@ -110,13 +110,13 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
      * @param frag
      * @return
      */
-    protected View getDisplayView(T field, Fragment frag){
+    protected View getDisplayView(final T field, Fragment frag){
         return null;
     }
 
-    public abstract View getView(T field, Fragment frag);
+    public abstract View getView(final T field, Fragment frag);
     /**
      * Override this method to initialize the value in views
      */
-    protected abstract void initViewValue(T field);
+    protected abstract void initViewValue(final T field);
 }

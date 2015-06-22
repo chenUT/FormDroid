@@ -7,7 +7,7 @@ public class StringUtils {
    private StringUtils(){}
 
    public static boolean isEmptyOrWhiteSpace(String str){
-       return str == null && isEmpty(str.trim());
+       return str == null || isEmpty(str.trim());
    }
 
    public static boolean isEmpty(CharSequence str){

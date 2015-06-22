@@ -7,6 +7,7 @@ import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.TextViewController;
 import com.chen.formdroid.utils.StringUtils;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -18,11 +19,10 @@ public class TextField extends LabelField {
     @JsonProperty
     private String hint;
 
-    public TextField(String fieldId) {
+    @JsonCreator
+    public TextField(@JsonProperty("fieldId")String fieldId) {
         super(fieldId);
     }
-
-
 
     @Override
     public AbsInputField<CharSequence> cloneWithNewId(String fieldId) {
@@ -30,8 +30,6 @@ public class TextField extends LabelField {
         field.setHint(this.hint);
         return field;
     }
-
-
 
     @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {

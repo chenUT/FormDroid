@@ -24,14 +24,14 @@ public class LabelViewController extends AbsInputFieldViewController<LabelField>
     }
 
     @Override
-    public View getView(LabelField field, Fragment frag) {
+    public View getView(final LabelField field,final Fragment frag) {
         LinearLayout wrapper =(LinearLayout) getInflater().inflate(R.layout.inputfield_labelfield, null, false);
         mTextView = (TextView)wrapper.findViewById(R.id.textfield_label);
         return mTextView;
     }
 
     @Override
-    protected void initViewValue(LabelField field){
+    protected void initViewValue(final LabelField field){
         if(mTextView != null) {
             mTextView.setText(field.getValue());
         }
