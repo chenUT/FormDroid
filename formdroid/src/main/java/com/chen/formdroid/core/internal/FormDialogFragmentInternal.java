@@ -1,22 +1,23 @@
-package com.chen.formdroid.core.fragments;
+package com.chen.formdroid.core.internal;
 
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.chen.formdroid.FormContext;
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.template.fields.AbsDialogFieldViewController;
-import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.exceptions.InputFieldTypeMismatchException;
+import com.chen.formdroid.utils.FDViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,15 @@ public class FormDialogFragmentInternal extends DialogFragment{
     }
 
     private AbsDialogFieldViewController mViewCtrl;
+
+    /**
+     * reference of the entire form
+     */
     private Form mForm;
 
     private List<AbsInputFieldViewController> mDialogFieldCtrls;
+
+    private List<Integer> mViewIdList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,27 +73,30 @@ public class FormDialogFragmentInternal extends DialogFragment{
                     }
                 }
             }//end of for(AbsInputField field : mForm.getFields())
-            mDialogFieldCtrls = new ArrayList<>();
+            mDialogFieldCtrls = mViewCtrl.getDialogViewControllers(FormDialogFragmentInternal.this);
+            mViewIdList = new ArrayList<>();
         }//end of if(args != null)
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = getBuilder(getDialogView());
+        AlertDialog.Builder builder = getBuilder(getDialogView(getActivity().getLayoutInflater()));
         AlertDialog dialog = builder.create();
-
         dialog.setOnShowListener(new DialogOnShowListener(mViewCtrl.hasNeutralButton()));
         return dialog;
     }
 
-    private View getDialogView(){
-        List<AbsInputField> fields = mViewCtrl.getFields();
-        for (int i = 0; i < fields.size(); i++) {
-            AbsInputField field = fields.get(i);
-            mDialogFieldCtrls.add(field.getViewControllerInternal(FormDialogFragmentInternal.this));
-
+    private View getDialogView(LayoutInflater inflater){
+        ViewGroup dialogRootLayout = (ViewGroup)inflater.inflate(R.layout.inputfield_dialog_dialog_wrapper, null, false);
+        for(AbsInputFieldViewController viewController : mDialogFieldCtrls){
+            int tmpViewId = FDViewUtils.generateViewId();
+            while(mViewIdList.contains(tmpViewId)){
+                tmpViewId = FDViewUtils.generateViewId();
+            }
+            View tmpView = viewController.getViewInternal(tmpViewId);
+            dialogRootLayout.addView(tmpView);
         }
-        return null;
+        return dialogRootLayout;
     }
 
     /**

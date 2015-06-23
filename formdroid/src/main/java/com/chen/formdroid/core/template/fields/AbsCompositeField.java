@@ -1,5 +1,6 @@
 package com.chen.formdroid.core.template.fields;
 
+import com.chen.formdroid.core.internal.AbsInputField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;

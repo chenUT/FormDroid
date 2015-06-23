@@ -3,8 +3,8 @@ package com.chen.formdroid.core.template.fields.textfield.models;
 import android.support.v4.app.Fragment;
 
 import com.chen.formdroid.core.annotations.InputField;
-import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.core.internal.AbsInputField;
+import com.chen.formdroid.core.internal.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.viewcontrollers.LabelViewController;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

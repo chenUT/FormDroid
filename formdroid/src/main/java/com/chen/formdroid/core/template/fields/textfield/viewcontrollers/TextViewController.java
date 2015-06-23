@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.core.internal.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.models.TextField;
 import com.chen.formdroid.utils.StringUtils;
 

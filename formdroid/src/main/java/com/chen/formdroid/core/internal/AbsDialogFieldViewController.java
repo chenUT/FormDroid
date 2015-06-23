@@ -1,11 +1,11 @@
-package com.chen.formdroid.core.template.fields;
+package com.chen.formdroid.core.internal;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.chen.formdroid.core.fragments.FormDialogFragmentInternal;
+import com.chen.formdroid.core.template.fields.AbsDialogField;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by chen on 4/23/15.
  */
-public abstract class AbsDialogFieldViewController<T extends AbsDialogField> extends AbsInputFieldViewController<T>{
+public abstract class AbsDialogFieldViewController<T extends AbsDialogField> extends AbsInputFieldViewController<T> {
 
     public static final int RESULT_CODE_SUCCESS = 1;
     public static final int RESULT_CODE_CANCEL = 2;
@@ -67,7 +67,7 @@ public abstract class AbsDialogFieldViewController<T extends AbsDialogField> ext
      * @param requestCode
      * @param resultCode
      */
-    public final void onDialogResultInternal(int requestCode, int resultCode){
+    final void onDialogResultInternal(int requestCode, int resultCode){
         switch (resultCode){
             case FormDialogFragmentInternal.DIALOG_RESULT_POSITIVE:
                 onDialogResult(getField(), requestCode, RESULT_CODE_SUCCESS);
@@ -78,12 +78,12 @@ public abstract class AbsDialogFieldViewController<T extends AbsDialogField> ext
         }
     }
 
-    public List<AbsInputFieldViewController> getDialogViewControllers(){
+    public List<AbsInputFieldViewController> getDialogViewControllers(Fragment fragment){
         List<AbsInputField> fields = this.getFields();
         List<AbsInputFieldViewController> result = new ArrayList<>();
         for (int i = 0; i < fields.size(); i++) {
             AbsInputField field = fields.get(i);
-            result.add(field.getViewControllerInternal(getFragment()));
+            result.add(field.getViewControllerInternal(fragment));
         }
         return result;
     }

@@ -1,8 +1,5 @@
 package com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -11,11 +8,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.annotations.InputField;
-import com.chen.formdroid.core.template.fields.AbsCompositeField;
-import com.chen.formdroid.core.template.fields.AbsDialogField;
-import com.chen.formdroid.core.template.fields.AbsDialogFieldViewController;
-import com.chen.formdroid.core.template.fields.AbsInputField;
+import com.chen.formdroid.core.internal.AbsDialogFieldViewController;
+import com.chen.formdroid.core.internal.AbsInputField;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
 import com.chen.formdroid.utils.StringUtils;
@@ -53,6 +47,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
 
         //open dialog button
         Button button = (Button)rootView.findViewById(R.id.dialog_action);
+        mField.getFields();
         button.setOnClickListener(new OpenDialogButtonListener());
         String fieldName = mField.getName();
         if(!StringUtils.isEmptyOrWhiteSpace(getField().getName())){
@@ -88,7 +83,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
 
         @Override
         public void onClick(View v) {
-
+            //TODO show the dialog
         }
     }
 }

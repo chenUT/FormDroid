@@ -1,6 +1,5 @@
-package com.chen.formdroid.core.template.fields;
+package com.chen.formdroid.core.internal;
 
-import android.support.v4.app.Fragment;
 
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;

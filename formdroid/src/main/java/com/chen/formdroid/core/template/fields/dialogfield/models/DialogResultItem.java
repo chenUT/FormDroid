@@ -1,10 +1,8 @@
 package com.chen.formdroid.core.template.fields.dialogfield.models;
 
-import android.app.Dialog;
-import android.view.LayoutInflater;
-import android.view.View;
 
-import com.chen.formdroid.core.template.fields.AbsInputField;
+
+import com.chen.formdroid.core.internal.AbsInputField;
 
 import java.util.ArrayList;
 import java.util.List;

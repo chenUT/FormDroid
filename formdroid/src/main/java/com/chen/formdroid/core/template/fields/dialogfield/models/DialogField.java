@@ -4,10 +4,10 @@ package com.chen.formdroid.core.template.fields.dialogfield.models;
 import android.support.v4.app.Fragment;
 
 import com.chen.formdroid.core.annotations.InputField;
+import com.chen.formdroid.core.internal.AbsInputField;
+import com.chen.formdroid.core.internal.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.AbsCompositeField;
 import com.chen.formdroid.core.template.fields.AbsDialogField;
-import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers.DialogFieldViewController;
 import com.chen.formdroid.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;

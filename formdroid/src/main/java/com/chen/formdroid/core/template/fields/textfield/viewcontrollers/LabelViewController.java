@@ -6,8 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
+import com.chen.formdroid.core.internal.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
 
 import org.w3c.dom.Text;
@@ -15,7 +14,7 @@ import org.w3c.dom.Text;
 /**
  * Created by chen on 3/29/15.
  */
-public class LabelViewController extends AbsInputFieldViewController<LabelField>{
+public class LabelViewController extends AbsInputFieldViewController<LabelField> {
 
     private TextView mTextView;
 

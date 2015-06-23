@@ -1,7 +1,7 @@
 package com.chen.formdroid.core.template.form;
 
 import com.chen.formdroid.FormContext;
-import com.chen.formdroid.core.template.fields.AbsInputField;
+import com.chen.formdroid.core.internal.AbsInputField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

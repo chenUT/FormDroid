@@ -1,4 +1,4 @@
-package com.chen.formdroid.core.template.fields;
+package com.chen.formdroid.core.internal;
 
 import android.support.v4.app.Fragment;
 
@@ -144,7 +144,7 @@ public abstract class AbsInputField<T> {
 
     //view engine fragment will call this to get correct viewcontroller
     @JsonIgnore
-    public final AbsInputFieldViewController getViewControllerInternal(Fragment frag){
+    final AbsInputFieldViewController getViewControllerInternal(Fragment frag){
        AbsInputFieldViewController vCtrl = getViewController(frag);
        Class<? extends AbsInputFieldViewController> replaceClass = getReplaceViewControllerClass(vCtrl);
        if(replaceClass != null){

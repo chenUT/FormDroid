@@ -1,16 +1,15 @@
-package com.chen.formdroid.core.template.fields;
+package com.chen.formdroid.core.internal;
 
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.annotations.InputField;
+import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.utils.StringUtils;
 
 /**
@@ -49,10 +48,18 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
 
     protected LayoutInflater getInflater(){
 //        return (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return LayoutInflater.from(getActivity());
+//        return LayoutInflater.from(getActivity());
+        return getActivity().getLayoutInflater();
     }
 
-    public final View getViewInternal(int viewId){
+    /**
+     * This is called by {@link com.chen.formdroid.core.fragments.FormCoreFragment}
+     * and {@link com.chen.formdroid.core.fragments.FormDialogFragmentInternal}
+     * to inflate the views in target fragment
+     * @param viewId
+     * @return
+     */
+    final View getViewInternal(int viewId){
         setViewId(viewId);
         View tmpView = getView(mField, mFrag);
         tmpView.setId(viewId);
@@ -84,7 +91,8 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     public void onViewDestroy(){}
 
     /**
-     * This is a not editable view for show up purpose only
+     * This is not a editable view and for show up purpose only
+     * Commonly used by dialogInput to display current dialog result items
      * By default, this returns a textview in the format of {@link AbsInputField}.getName(): {@link AbsInputField}.getValue().toString()
      * @return
      */
@@ -114,7 +122,7 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         return null;
     }
 
-    public abstract View getView(final T field, Fragment frag);
+    protected abstract View getView(final T field, Fragment frag);
     /**
      * Override this method to initialize the value in views
      */

@@ -1,4 +1,4 @@
-package com.chen.formdroid.core.fragments;
+package com.chen.formdroid.core.internal;
 
 import com.chen.formdroid.R;
 import android.os.AsyncTask;
@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.chen.formdroid.FormContext;
-import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.utils.FDViewUtils;
 
