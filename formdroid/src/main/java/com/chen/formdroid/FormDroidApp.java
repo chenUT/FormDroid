@@ -1,10 +1,11 @@
 package com.chen.formdroid;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.chen.formdroid.core.template.fields.AbsInputField;
-import com.chen.formdroid.core.template.fields.AbsInputFieldViewController;
-import com.chen.formdroid.core.template.fields.InputFieldFactory;
+import com.chen.formdroid.core.internal.AbsInputField;
+import com.chen.formdroid.core.internal.AbsInputFieldViewController;
+import com.chen.formdroid.core.internal.InputFieldFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.List;
  * Created by chen on 3/28/15.
  */
 public class FormDroidApp extends Application{
+
+    public static Context _appContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -21,6 +25,9 @@ public class FormDroidApp extends Application{
 
         //this is the last step of initialization
         FormContext.getInstance().init(getApplicationContext());
+
+        //init app context
+        _appContext = getApplicationContext();
     }
 
     private final void initFields(){

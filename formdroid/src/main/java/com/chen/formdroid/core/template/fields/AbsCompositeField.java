@@ -15,15 +15,6 @@ public abstract class AbsCompositeField<T> extends AbsInputField<T>{
         super(fieldId);
     }
 
-//    public AbsCompositeField(String fieldId, AbsCompositeField field) {
-//        super(fieldId, field);
-//        List<AbsInputField> fields = field.getFields();
-//        for (int i = 0; i < fields.size(); i++) {
-//            AbsInputField tmp = fields.get(i);
-//            fields.add(tmp.cloneWithNewId(fieldId+"#"+i));
-//        }
-//    }
-
     @JsonProperty
     private List<AbsInputField> fields;
 

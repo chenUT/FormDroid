@@ -2,7 +2,7 @@ package com.chen.formdroid;
 
 import android.content.Context;
 
-import com.chen.formdroid.core.template.fields.InputFieldFactory;
+import com.chen.formdroid.core.internal.InputFieldFactory;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.iListeners.IDataModelListener;
 import com.chen.formdroid.iListeners.IEventListener;

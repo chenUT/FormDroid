@@ -139,6 +139,7 @@ public abstract class AbsInputField<T> {
         result.required = this.isRequired();
         result.visible = this.isVisible();
         result.posId = this.getPosId();
+        result.value = this.getValue();
         return result;
     }
 
@@ -216,5 +217,10 @@ public abstract class AbsInputField<T> {
     public abstract boolean clear();
     public abstract AbsInputFieldViewController getViewController(Fragment frag);
 
+    /**
+     * this should not be called, and should be override only.
+     * @param fieldId
+     * @return
+     */
     protected abstract AbsInputField<T> cloneWithNewId(String fieldId);
 }

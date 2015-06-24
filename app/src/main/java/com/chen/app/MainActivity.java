@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.chen.formdroid.core.fragments.FormCoreFragment;
+import com.chen.formdroid.core.internal.FormCoreFragment;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.core.template.form.FormFactory;
 
@@ -34,18 +34,12 @@ public class MainActivity extends FragmentActivity {
         catch(IOException ioe){
         }
 
-        Log.d("test","1");
         Form f = FormFactory.newFormByJson(jsonStr);
-        Log.d("test","2");
         Fragment temp = FormCoreFragment.newInstance(f.getFormId());
-
-        Log.d("test","3");
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame, temp)
-                .addToBackStack("temp_form")
+                .addToBackStack("test_form")
                 .commit();
-
-        Log.d("test","4");
     }
 
 

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.template.fields.AbsInputField;
 import com.chen.formdroid.utils.StringUtils;
 
 /**
@@ -28,18 +27,16 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
 
     private int mViewId;
 
+    private View innerViewRef;
+
     //inject inputField(model) to view controller
     public AbsInputFieldViewController(T field, Fragment frag){
         this.mField = field;
         this.mFrag = frag;
     }
 
-    private Activity getActivity(){
+    protected Activity getActivity(){
         return this.mFrag.getActivity();
-    }
-
-    protected Context getContext(){
-        return this.mFrag.getActivity().getApplicationContext();
     }
 
     protected Fragment getFragment(){
@@ -53,8 +50,8 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
     }
 
     /**
-     * This is called by {@link com.chen.formdroid.core.fragments.FormCoreFragment}
-     * and {@link com.chen.formdroid.core.fragments.FormDialogFragmentInternal}
+     * This is called by {@link com.chen.formdroid.core.internal.FormCoreFragment}
+     * and {@link com.chen.formdroid.core.internal.FormDialogFragment}
      * to inflate the views in target fragment
      * @param viewId
      * @return
@@ -63,7 +60,8 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
         setViewId(viewId);
         View tmpView = getView(mField, mFrag);
         tmpView.setId(viewId);
-        return tmpView;
+        this.innerViewRef = tmpView;
+        return this.innerViewRef;
     }
 
     protected final T getField(){
@@ -80,6 +78,8 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
 
     /**
      * By default validate view through logic will reinitialize the value in view
+     *
+     * However this may be different from {@link AbsInputFieldViewController#initViewValue(AbsInputField)} that this method will also reset the ui components
      */
     public void invalidateView(T field){
         initViewValue(field);
@@ -110,6 +110,11 @@ public abstract class AbsInputFieldViewController<T extends AbsInputField> {
             text.setText(mField.getName()+": "+mField.getValue().toString());
         }
         return root;
+    }
+
+    public void clear(){
+        this.mField.clear();
+        invalidateView(this.mField);
     }
 
     /**

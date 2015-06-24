@@ -14,7 +14,13 @@
     {
       "@type": "dialog",
       "fieldId": "da",
-      "name": "dialog"
+      "name": "dialog",
+      "fields":[
+        {
+          "@type": "text",
+          "name":"name"
+        }
+      ]
     }
   ]
 }

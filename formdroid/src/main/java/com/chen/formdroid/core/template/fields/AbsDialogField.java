@@ -32,7 +32,6 @@ public abstract class AbsDialogField extends AbsCompositeField<List<DialogResult
         return false;
     }
 
-    public abstract  AbsCompositeField getResultData();
     //whether the result of this dialog is mutable
     public abstract boolean isMutable();
 }

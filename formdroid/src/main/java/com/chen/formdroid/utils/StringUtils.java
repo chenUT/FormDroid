@@ -1,5 +1,7 @@
 package com.chen.formdroid.utils;
 
+import com.chen.formdroid.FormDroidApp;
+
 /**
  * Created by chen on 3/28/15.
  */
@@ -29,5 +31,9 @@ public class StringUtils {
         String tmpString = string.substring(1);
         String tmpCharStr = tmpChar.toString().toLowerCase();
         return tmpCharStr + tmpString;
+    }
+
+    public static String getResourceString(int id){
+        return FormDroidApp._appContext.getString(id);
     }
 }

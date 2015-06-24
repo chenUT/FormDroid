@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class FormCoreFragment extends Fragment {
 
-    private static final String FORM_ID_BUNDLE_KEY = "formIdBundleKey";
+    static final String FORM_ID_BUNDLE_KEY = "formIdBundleKey";
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -98,6 +98,10 @@ public class FormCoreFragment extends Fragment {
         this.mForm = null;
         this.mViewControllerList.clear();
         this.mViewControllerList = null;
+    }
+
+    public String getFormId(){
+        return this.mFormId;
     }
 
     /**

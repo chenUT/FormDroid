@@ -31,17 +31,6 @@ public class DialogField extends AbsDialogField {
         super(fieldId);
     }
 
-    @Override
-    public AbsCompositeField getResultData() {
-        List<AbsInputField> fields = getFields();
-
-        for(int i = 0 ;i<fields.size(); i++){
-
-        }
-        return null;
-    }
-
-    @Override
     public boolean isMutable() {
         return mutable;
     }
@@ -70,6 +59,15 @@ public class DialogField extends AbsDialogField {
 
     @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {
-        return new DialogFieldViewController(this,frag);
+        return new DialogFieldViewController(this, frag);
+    }
+
+    public void addResultItem(final DialogResultItem resultItem){
+        if(this.value == null){
+            this.value = new ArrayList<>();
+        }
+        int index = this.value.size();
+        resultItem.setIndex(index);
+        this.value.add(resultItem);
     }
 }
