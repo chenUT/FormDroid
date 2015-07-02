@@ -4,4 +4,6 @@
 
 
     <dimen name="form_droid_dialog_padding">10dp</dimen>
+    <dimen name="form_droid_dialog_result_button_text_size">10sp</dimen>
+
 </resources>

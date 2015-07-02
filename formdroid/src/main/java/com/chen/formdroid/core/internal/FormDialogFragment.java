@@ -29,14 +29,13 @@ import java.util.List;
  * Created by chen on 4/23/15.
  */
 public class FormDialogFragment extends DialogFragment{
-    private static final String DIALOG_FIELD_ID_KEY ="field_id_key";
     private static final String DIALOG_RESULT_ITEM_INDEX="result_item_index";
 
     static final int DIALOG_RESULT_POSITIVE = 1;
     static final int DIALOG_RESULT_NEGATIVE= 2;
 
-    public static void showDialog(Fragment mFrag, String formId, String fieldId, int itemIndex){
-        DialogFragment dialogFrag = FormDialogFragment.newInstance(formId, fieldId, itemIndex);
+    public static void showDialog(Fragment mFrag, int itemIndex, AbsDialogFieldViewController dialogCtrl){
+        DialogFragment dialogFrag = FormDialogFragment.newInstance(itemIndex, dialogCtrl);
         FragmentTransaction ft = mFrag.getActivity().getSupportFragmentManager().beginTransaction();
         Fragment prev = mFrag.getActivity().getSupportFragmentManager().findFragmentByTag("dialog");
         if(prev != null){
@@ -47,22 +46,16 @@ public class FormDialogFragment extends DialogFragment{
         return;
     }
 
-    private static FormDialogFragment newInstance(String formId, String fieldId, int itemIndex){
+    private static FormDialogFragment newInstance(int itemIndex, AbsDialogFieldViewController dialogCtrl){
         FormDialogFragment frag = new FormDialogFragment();
+        frag.setViewCtrl(dialogCtrl);
         Bundle b = new Bundle();
-        b.putString(FormCoreFragment.FORM_ID_BUNDLE_KEY, formId);
-        b.putString(DIALOG_FIELD_ID_KEY, fieldId);
         b.putInt(DIALOG_RESULT_ITEM_INDEX, itemIndex);
         frag.setArguments(b);
         return frag;
     }
 
     private AbsDialogFieldViewController mViewCtrl;
-
-    /**
-     * reference of the entire form
-     */
-    private Form mForm;
 
     private List<AbsInputFieldViewController> mDialogFieldCtrls;
 
@@ -72,6 +65,14 @@ public class FormDialogFragment extends DialogFragment{
 
     private Dialog mDialog;
 
+    /**
+     * pass the parent dialog controller to this view
+     * @param viewCtrl
+     */
+    private void setViewCtrl(AbsDialogFieldViewController viewCtrl) {
+        this.mViewCtrl = viewCtrl;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,21 +80,7 @@ public class FormDialogFragment extends DialogFragment{
         if(args != null){
             //retrive form and field information
             String formId = args.getString(FormCoreFragment.FORM_ID_BUNDLE_KEY);
-            String fieldId = args.getString(DIALOG_FIELD_ID_KEY);
             mResultItemIndex = args.getInt(DIALOG_RESULT_ITEM_INDEX);
-            mForm = FormContext.getInstance().getForm(formId);
-            for(AbsInputField field : mForm.getFields()){
-                if(fieldId.equals(field.getFieldId())){
-                    if(field instanceof DialogField){
-                        mViewCtrl = (AbsDialogFieldViewController)field.getViewControllerInternal(this);
-                        break;
-                    }
-                    //this should not happen
-                    else{
-                        throw new InputFieldTypeMismatchException(field.getName()+" is not a DialogField");
-                    }
-                }
-            }//end of for(AbsInputField field : mForm.getFields())
             mDialogFieldCtrls = mViewCtrl.getDialogViewControllers(FormDialogFragment.this, mResultItemIndex);
             mViewIdList = new ArrayList<>();
         }//end of if(args != null)
@@ -108,6 +95,8 @@ public class FormDialogFragment extends DialogFragment{
         mDialog = dialog;
         return mDialog;
     }
+
+
 
     private View getDialogView(LayoutInflater inflater){
         ViewGroup dialogRootLayout = (ViewGroup)inflater.inflate(R.layout.inputfield_dialog_dialog_wrapper, null, false);

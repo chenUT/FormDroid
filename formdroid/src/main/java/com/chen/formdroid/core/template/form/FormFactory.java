@@ -10,11 +10,16 @@ import java.io.IOException;
 public class FormFactory {
     private FormFactory(){}
 
+    public static Form getFormById(String formId){
+        Form result = FormContext.getInstance().getForm(formId);
+        return result;
+    }
+
     public static Form newFormByJson(String jsonStr){
         try {
             Form form = FormContext.getMapper().readValue(jsonStr, Form.class);
             //register in global cache
-            FormContext.getInstance().addFormCache(form);
+            FormContext.getInstance().addToCache(form);
             return form;
         } catch (IOException e) {
             e.printStackTrace();

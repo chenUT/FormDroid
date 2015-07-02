@@ -5,7 +5,7 @@
               android:weightSum="10"
               android:layout_height="100dp">
 
-    <TextVew
+    <TextView
         android:id="@+id/simple_text"
         android:layout_height="match_parent"
         android:layout_width="0dp"
@@ -15,11 +15,17 @@
         android:id="@+id/edit_button"
         android:layout_width="0dp"
         android:layout_weight="2"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:text="@string/dialog_result_edit_button"
+        android:textSize="@dimen/form_droid_dialog_result_button_text_size"
+        />
 
     <Button
         android:id="@+id/delete_button"
         android:layout_width="0dp"
         android:layout_weight="2"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:text="@string/dialog_result_delete_button"
+        android:textSize="@dimen/form_droid_dialog_result_button_text_size"
+        />
 </LinearLayout>

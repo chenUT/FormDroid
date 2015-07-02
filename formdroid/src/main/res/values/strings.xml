@@ -7,4 +7,6 @@
     <string name="dialog_positive_button">Done</string>
     <string name="dialog_cancel_button">Cancel</string>
     <string name="dialog_neutral_button">Clear</string>
+    <string name="dialog_result_edit_button">Edit</string>
+    <string name="dialog_result_delete_button">Delete</string>
 </resources>

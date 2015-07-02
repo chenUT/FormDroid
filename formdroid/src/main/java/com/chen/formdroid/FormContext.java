@@ -63,7 +63,7 @@ public class FormContext {
         _mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
-    public void addFormCache(Form form){
+    public void addToCache(Form form){
         //we first free the memory of previous form
         if(_globalFormCache.containsKey(form.getFormId())){
             _globalFormCache.remove(form.getFormId());

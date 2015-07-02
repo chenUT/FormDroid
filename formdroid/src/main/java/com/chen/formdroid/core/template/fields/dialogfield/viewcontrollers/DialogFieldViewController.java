@@ -42,7 +42,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
         LinearLayout resultView = (LinearLayout)getInflater().inflate(R.layout.inputfield_dialog_result_simple_display_view, null, false);
 
         Button edit = (Button)resultView.findViewById(R.id.edit_button);
-        edit.setOnClickListener(new OpenDialogButtonListener(formId, getField().getFieldId(),item.getIndex()));
+        edit.setOnClickListener(new OpenDialogButtonListener(formId, item.getIndex()));
 
         Button deleteButton = (Button)resultView.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new DeleteResultItemButtonListener(item.getIndex()));
@@ -60,7 +60,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
             getField().addResultItem(resultItem);
         }
         if(RESULT_CODE_CANCEL != resultCode){
-            initResultList(getField(), mRootView);
+          initResultList();
         }
         mRootView.invalidate();
         //do nothing for other operations
@@ -73,7 +73,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
         //open dialog button
         Button button = (Button)mRootView.findViewById(R.id.dialog_action);
         mField.getFields();
-        button.setOnClickListener(new OpenDialogButtonListener(formId, mField.getFieldId(), DialogResultItem.ITEM_INDEX_NEW));
+        button.setOnClickListener(new OpenDialogButtonListener(formId, DialogResultItem.ITEM_INDEX_NEW));
         String fieldName = mField.getName();
         if(!StringUtils.isEmptyOrWhiteSpace(getField().getName())){
             button.setText(StringUtils.getResourceString(R.string.dialog_create_button_default_prefix) + " " + fieldName);
@@ -86,6 +86,12 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     @Override
     protected void initViewValue(final DialogField field) {
 
+    }
+
+    private void initResultList(){
+        if(mRootView != null) {
+            initResultList(getField(), mRootView);
+        }
     }
 
     private void initResultList(final DialogField field, ViewGroup root){
@@ -112,18 +118,16 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     private class OpenDialogButtonListener implements View.OnClickListener{
 
         private final String formId;
-        private final String fieldId;
         private final int index;
 
-        public OpenDialogButtonListener(String formId, String fieldId, int index){
+        public OpenDialogButtonListener(String formId, int index){
             this.index = index;
-            this.fieldId = fieldId;
             this.formId = formId;
         }
 
         @Override
         public void onClick(View v) {
-            FormDialogFragment.showDialog(getFragment(),formId, fieldId, index);
+            FormDialogFragment.showDialog(getFragment(),index, DialogFieldViewController.this);
         }
     }
 
@@ -136,6 +140,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
         @Override
         public void onClick(View v) {
             removeResultItem(index);
+            initResultList();
         }
     }
 

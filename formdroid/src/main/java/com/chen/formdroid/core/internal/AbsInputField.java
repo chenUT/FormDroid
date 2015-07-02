@@ -130,6 +130,14 @@ public abstract class AbsInputField<T> {
         return value == null;
     }
 
+    @Override
+    public String toString() {
+        if(isEmpty()){
+            return "";
+        }
+        return this.value.toString();
+    }
+
     @JsonIgnore
     public final AbsInputField<T> clone(String fieldId){
         AbsInputField result = cloneWithNewId(fieldId);
@@ -143,6 +151,7 @@ public abstract class AbsInputField<T> {
         return result;
     }
 
+    //TODO separate controller creation from input field, maybe change to annotation based IoC injection so inpurfield models can be used cross platform
     //view engine fragment will call this to get correct viewcontroller
     @JsonIgnore
     final AbsInputFieldViewController getViewControllerInternal(Fragment frag){
