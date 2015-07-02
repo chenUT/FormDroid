@@ -19,6 +19,10 @@ public class TextField extends LabelField {
     @JsonProperty
     private String hint;
 
+    public TextField(){
+        super();
+    }
+
     @JsonCreator
     public TextField(@JsonProperty("fieldId")String fieldId) {
         super(fieldId);

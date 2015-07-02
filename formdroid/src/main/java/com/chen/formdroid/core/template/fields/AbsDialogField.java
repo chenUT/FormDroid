@@ -17,6 +17,11 @@ public abstract class AbsDialogField extends AbsCompositeField<List<DialogResult
         super(fieldId);
     }
 
+    public AbsDialogField() {
+        super();
+
+    }
+
     public String getDialogTitle() {
         if(StringUtils.isEmptyOrWhiteSpace(this.dialogTitle)){
             return getName();

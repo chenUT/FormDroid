@@ -22,6 +22,10 @@ import java.util.List;
  */
 @InputField(type = "dialog")
 public class DialogField extends AbsDialogField {
+    public DialogField(){
+        super();
+    }
+
     @JsonProperty
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public boolean mutable = true;

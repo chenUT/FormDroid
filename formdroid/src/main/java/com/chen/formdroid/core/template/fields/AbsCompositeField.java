@@ -18,6 +18,9 @@ public abstract class AbsCompositeField<T> extends AbsInputField<T>{
     @JsonProperty
     private List<AbsInputField> fields;
 
+    public AbsCompositeField() {
+    }
+
     public List<AbsInputField> getFields() {
         return fields;
     }

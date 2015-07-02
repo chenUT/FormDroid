@@ -20,6 +20,9 @@ public class LabelField extends AbsInputField<CharSequence> {
         super(fieldId);
     }
 
+    public LabelField() {
+    }
+
     @Override
     public void setValue(CharSequence o) {
         if (o == null) {

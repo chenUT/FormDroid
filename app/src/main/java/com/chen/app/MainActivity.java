@@ -3,20 +3,25 @@ package com.chen.app;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.chen.formdroid.FormContext;
 import com.chen.formdroid.core.internal.FormCoreFragment;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.core.template.form.FormFactory;
+import com.chen.formdroid.exceptions.InvalidFormIdException;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends FragmentActivity {
+
+    private String mFormId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +29,10 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         final Button save = (Button)findViewById(R.id.save);
-        Button load = (Button)findViewById(R.id.load);
+        final Button load = (Button)findViewById(R.id.load);
+        final Button delete = (Button)findViewById(R.id.delete);
 
+        load();
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,11 +46,22 @@ public class MainActivity extends FragmentActivity {
                 save();
             }
         });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteForm();
+            }
+        });
     }
 
+    private void deleteForm(){
+        FormContext.getInstance().deleteForm(mFormId);
+        getSupportFragmentManager().popBackStack("form", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
 
     private void load(){
-         String jsonStr = "";
+        String jsonStr = "";
         try {
             InputStream in = getAssets().open("sample.json");
             byte[] buffer = new byte[in.available()];
@@ -53,15 +71,23 @@ public class MainActivity extends FragmentActivity {
         }
         catch(IOException ioe){
         }
-        Form f = FormFactory.newFormByJson(jsonStr);
+        Form f = FormFactory.loadForm(jsonStr);
+        mFormId = f.getFormId();
         Fragment temp = FormCoreFragment.newInstance(f.getFormId());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame, temp)
+                .addToBackStack("form")
                 .commit();
     }
 
     private void save(){
-
+        try {
+            FormContext.getInstance().persisForm(mFormId);
+            getSupportFragmentManager().popBackStack("form", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } catch (InvalidFormIdException e) {
+            Toast.makeText(getApplicationContext(), "Error saving form", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     @Override

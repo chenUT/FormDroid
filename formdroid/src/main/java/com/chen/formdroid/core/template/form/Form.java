@@ -25,7 +25,7 @@ public class Form {
     private String formId = UUID.randomUUID().toString();
 
     @JsonIgnore
-    private long formDbId;
+    private long templateId;
 
     @JsonProperty
     private List<AbsInputField> fields;
@@ -42,12 +42,12 @@ public class Form {
         return formId;
     }
 
-    public long getFormDbId() {
-        return formDbId;
+    public long getTemplateId() {
+        return templateId;
     }
 
-    public void setFormDbId(long formDBId) {
-        this.formDbId = formDBId;
+    public void setTemplateId(long formDBId) {
+        this.templateId = formDBId;
     }
 
     public List<AbsInputField> getFields() {
