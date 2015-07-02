@@ -39,7 +39,6 @@ public class FormFactory {
             return form;
         } catch (IOException e) {
             e.printStackTrace();
-            String error = e.getMessage();
             return null;
         }
     }

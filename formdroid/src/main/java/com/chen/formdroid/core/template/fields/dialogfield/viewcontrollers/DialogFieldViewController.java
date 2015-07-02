@@ -44,6 +44,11 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
         Button edit = (Button)resultView.findViewById(R.id.edit_button);
         edit.setOnClickListener(new OpenDialogButtonListener(formId, item.getIndex()));
 
+        //disable the edit button if not mutable
+        if(!getField().isMutable()){
+            edit.setEnabled(false);
+        }
+
         Button deleteButton = (Button)resultView.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new DeleteResultItemButtonListener(item.getIndex()));
 
@@ -60,7 +65,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
             getField().addResultItem(resultItem);
         }
         if(RESULT_CODE_CANCEL != resultCode){
-          initResultList();
+            initViewValue(getField());
         }
         mRootView.invalidate();
         //do nothing for other operations
@@ -78,14 +83,13 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
         if(!StringUtils.isEmptyOrWhiteSpace(getField().getName())){
             button.setText(StringUtils.getResourceString(R.string.dialog_create_button_default_prefix) + " " + fieldName);
         }
-
-        initResultList(mField, mRootView);
+        initViewValue(mField);
         return mRootView;
     }
 
     @Override
     protected void initViewValue(final DialogField field) {
-
+        initResultList(field, mRootView);
     }
 
     private void initResultList(){

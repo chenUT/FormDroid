@@ -12,6 +12,11 @@
       "name": "labelb"
     },
     {
+      "@type": "checkbox",
+      "fieldId": "fc",
+      "name": "check this box"
+    },
+    {
       "@type": "dialog",
       "fieldId": "da",
       "name": "dialog",

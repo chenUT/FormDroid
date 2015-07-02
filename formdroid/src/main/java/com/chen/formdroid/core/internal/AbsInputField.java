@@ -224,6 +224,12 @@ public abstract class AbsInputField<T> {
     public abstract T getValue();
     public abstract void setValue(T o);
     public abstract boolean clear();
+
+    /**
+     * get the view controller for this particular model
+     * @param frag this is the fragment reference com from the attached fragment view
+     * @return
+     */
     public abstract AbsInputFieldViewController getViewController(Fragment frag);
 
     /**

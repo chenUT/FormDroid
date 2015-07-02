@@ -39,9 +39,9 @@ public class FormDroidApp extends Application{
             InputFieldFactory.registerFields(fields);
         }
         //register view controller for existing input fields if necessary
-        List<Class<? extends AbsInputFieldViewController>> vCtrls = new LinkedList<>();
-        if(registerReplaceViewControllers(vCtrls)){
-            InputFieldFactory.registerReplaceViewControllers(vCtrls);
+        List<Class<? extends AbsInputFieldViewController>> viewCtrls = new LinkedList<>();
+        if(registerReplaceViewControllers(viewCtrls)){
+            InputFieldFactory.registerReplaceViewControllers(viewCtrls);
         }
     }
 

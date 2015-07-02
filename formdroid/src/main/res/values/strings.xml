@@ -9,4 +9,7 @@
     <string name="dialog_neutral_button">Clear</string>
     <string name="dialog_result_edit_button">Edit</string>
     <string name="dialog_result_delete_button">Delete</string>
+
+    <!--Check box view-->
+    <string name="checkbox_placeholder">check box</string>
 </resources>
