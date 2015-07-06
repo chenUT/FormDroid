@@ -34,7 +34,7 @@ public class FormFactory {
                 FormContext.getInstance().addToCache(oldForm);
                 return oldForm;
             }
-             //register in global cache and persistance for new created form
+             //register in global cache and persistence for new created form
             initFormToCache(jsonStr, form);
             return form;
         } catch (IOException e) {

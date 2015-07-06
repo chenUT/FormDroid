@@ -1,14 +1,13 @@
 package com.chen.app;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chen.formdroid.FormContext;
@@ -20,24 +19,27 @@ import com.chen.formdroid.exceptions.InvalidFormIdException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MainActivity extends FragmentActivity {
+
+/**
+ * Activity to load a sample form from asset and for testing purpose
+ *
+ */
+public class SampleFormActivity extends ActionBarActivity {
 
     private String mFormId;
 
-    private static boolean _formLoaded = false;
-
-    private TextView formContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         final Button save = (Button)findViewById(R.id.save);
-        final Button load = (Button)findViewById(R.id.load_sample_inspect);
+        final Button load = (Button)findViewById(R.id.load);
         final Button delete = (Button)findViewById(R.id.delete);
 
-        formContent = (TextView)findViewById(R.id.form_json_content);
+        clearFormCache();
 
+        load();
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,24 +62,22 @@ public class MainActivity extends FragmentActivity {
         });
     }
 
-    private void deleteForm(){
-        if(!_formLoaded){
-            return;
-        }
+    /**
+     * sample form has an id of a we clear it first
+     */
+    private void clearFormCache(){
+        FormContext.getInstance().removeFromCache("a");
+    }
 
+    private void deleteForm(){
         FormContext.getInstance().deleteForm(mFormId);
         getSupportFragmentManager().popBackStack("form", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        _formLoaded = false;
-        setFormDisplayContent("");
     }
 
     private void load(){
-        if(_formLoaded){
-            return ;
-        }
         String jsonStr = "";
         try {
-            InputStream in = getAssets().open("form_inspect.json");
+            InputStream in = getAssets().open("sample.json");
             byte[] buffer = new byte[in.available()];
             in.read(buffer);
             in.close();
@@ -86,37 +86,22 @@ public class MainActivity extends FragmentActivity {
         catch(IOException ioe){
         }
         Form f = FormFactory.loadForm(jsonStr);
-
-        String currentString = f.toJsonString();
-
-        setFormDisplayContent(currentString);
-
         mFormId = f.getFormId();
         Fragment temp = FormCoreFragment.newInstance(f.getFormId());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame, temp)
                 .addToBackStack("form")
                 .commit();
-        _formLoaded = true;
     }
 
     private void save(){
-        if(!_formLoaded){
-            return;
-        }
         try {
             FormContext.getInstance().persisForm(mFormId);
             getSupportFragmentManager().popBackStack("form", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            _formLoaded = false;
-            setFormDisplayContent("");
         } catch (InvalidFormIdException e) {
             Toast.makeText(getApplicationContext(), "Error saving form", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-    }
-
-    private void setFormDisplayContent(String content){
-        formContent.setText(content);
     }
 
     @Override

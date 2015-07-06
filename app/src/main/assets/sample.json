@@ -9,12 +9,12 @@
     {
       "@type": "text",
       "fieldId": "fb",
-      "name": "labelb"
+      "name": "text input"
     },
     {
       "@type": "checkbox",
       "fieldId": "fc",
-      "name": "check this box"
+      "name": "check box input"
     },
     {
       "@type": "dialog",

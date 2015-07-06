@@ -79,10 +79,9 @@ public class FormContext {
 
     public void deleteForm(String formId){
         removeFromCache(formId);
-        SharedPreferences pref = this._appContext.getSharedPreferences(SHARED_PREF_KEY_FORM_STRING, Context.MODE_PRIVATE);
-        pref.edit().remove(formId).apply();
+        removeFromPersistence(formId);
     }
-
+    
     public void persisForm(String formId) throws InvalidFormIdException {
         Form result = getFromCache(formId);
         if(result == null){
@@ -107,7 +106,7 @@ public class FormContext {
         }
 
         //try persistance
-        result = getFromPersistance(formId);
+        result = getFromPersistence(formId);
         return result;
     }
 
@@ -115,12 +114,17 @@ public class FormContext {
         _globalFormCache.remove(formId);
     }
 
+    public void removeFromPersistence(String formId){
+        SharedPreferences pref = this._appContext.getSharedPreferences(SHARED_PREF_KEY_FORM_STRING, Context.MODE_PRIVATE);
+        pref.edit().remove(formId).apply();
+    }
+    
     /**
      * this will recreate the form from its last update in shared pref
      * @param formId
      * @return
      */
-    private Form getFromPersistance(String formId){
+    private Form getFromPersistence(String formId){
         SharedPreferences pref = this._appContext.getSharedPreferences(SHARED_PREF_KEY_FORM_STRING, Context.MODE_PRIVATE);
         String formString = pref.getString(formId, "");
         if(StringUtils.isEmpty(formString)){
