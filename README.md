@@ -19,7 +19,7 @@ To create a simple form with checkbox and text input form use the following json
     {
       "@type": "checkbox",
       "fieldId": "samplecb",
-      "name": "Are you 18 ?"
+      "name": "Read and Agree"
     }
   ]
 }
