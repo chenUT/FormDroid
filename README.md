@@ -24,6 +24,9 @@ To create a simple form with checkbox and text input form use the following json
   ]
 }
 ```
+##Screenshot
+
+![capture](https://cloud.githubusercontent.com/assets/6682969/8553721/47276dba-24b3-11e5-84cd-3a6a35e3cb33.PNG)
 
 #License
 
