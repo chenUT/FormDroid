@@ -10,18 +10,18 @@ To create a simple form with checkbox and text input form use the following json
 ```json
 {
   "formId": "sample",
-   "fields": [
-      {
-        "@type": "text",
-        "fieldId": "sampletest",
-        "name": "Preferred Name"
-      },
-      {
-        "@type": "checkbox",
-        "fieldId": "samplecb",
-        "name": "Are you 18 ?"
-      }
-    ]
+  "fields": [
+    {   
+      "@type": "text",
+      "fieldId": "sampletest",
+      "name": "Preferred Name"
+    },
+    {
+      "@type": "checkbox",
+      "fieldId": "samplecb",
+      "name": "Are you 18 ?"
+    }
+  ]
 }
 ```
 
