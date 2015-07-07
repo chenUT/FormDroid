@@ -7,7 +7,7 @@ app folder contain a sample app along with UI testing activites.
 #Example
 To create a simple form with checkbox and text input form use the following json config
 
-<code>
+```json
 {
   "formId": "sample",
    "fields": [
@@ -23,7 +23,7 @@ To create a simple form with checkbox and text input form use the following json
       }
     ]
 }
-</code>
+```
 
 #License
 
