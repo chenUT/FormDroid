@@ -5,7 +5,7 @@ A form engine for android, aim to create a codeless JSON only way of creating an
 app folder contain a sample app along with UI testing activites.
 
 #Example
-To create a simple form with checkbox and text input form use the following json config
+To create a simple form with checkbox and text input use the following json config
 
 ```json
 {
