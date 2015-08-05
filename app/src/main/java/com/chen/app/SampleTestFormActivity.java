@@ -24,7 +24,7 @@ import java.io.InputStream;
  * Activity to load a sample form from asset and for testing purpose
  *
  */
-public class SampleFormActivity extends ActionBarActivity {
+public class SampleTestFormActivity extends ActionBarActivity {
 
     private String mFormId;
 
@@ -77,7 +77,7 @@ public class SampleFormActivity extends ActionBarActivity {
     private void load(){
         String jsonStr = "";
         try {
-            InputStream in = getAssets().open("sample.json");
+            InputStream in = getAssets().open("sample_test.json");
             byte[] buffer = new byte[in.available()];
             in.read(buffer);
             in.close();

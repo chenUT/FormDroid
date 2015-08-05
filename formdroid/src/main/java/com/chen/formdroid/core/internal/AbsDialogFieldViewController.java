@@ -1,11 +1,10 @@
 package com.chen.formdroid.core.internal;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.chen.formdroid.core.template.fields.AbsDialogField;
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
+import com.chen.formdroid.core.template.fields.repeatfield.models.RepeatResultItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public abstract class AbsDialogFieldViewController<T extends AbsDialogField> ext
      * @param resultItem item as result
      * @param resultCode
      */
-    final void onDialogResultInternal(final DialogResultItem resultItem, int resultCode){
+    final void onDialogResultInternal(final RepeatResultItem resultItem, int resultCode){
         switch (resultCode){
             case FormDialogFragment.DIALOG_RESULT_POSITIVE:
                 if(null != resultItem){
@@ -67,7 +66,7 @@ public abstract class AbsDialogFieldViewController<T extends AbsDialogField> ext
 
     public List<AbsInputFieldViewController> getDialogViewControllers(Fragment fragment, int resultIndex){
         List<AbsInputField> fields;
-        if(resultIndex == DialogResultItem.ITEM_INDEX_NEW){
+        if(resultIndex == RepeatResultItem.ITEM_INDEX_NEW){
            fields = this.getFields();
         }
         else{
@@ -81,16 +80,16 @@ public abstract class AbsDialogFieldViewController<T extends AbsDialogField> ext
         return result;
     }
 
-    private DialogResultItem getResultItem(int index){
+    private RepeatResultItem getResultItem(int index){
        return getField().getValue().get(index);
     }
 
     /**
      * this method will be called when the dialog returns a result to the controller
-     * @param resultItem {@link DialogResultItem}, this will be null if it is a update
+     * @param resultItem {@link RepeatResultItem}, this will be null if it is a update
      * @param resultCode
      */
-    protected abstract void onDialogResult(final DialogResultItem resultItem, int resultCode);
+    protected abstract void onDialogResult(final RepeatResultItem resultItem, int resultCode);
 
     /**
      * the result view is how a dialog result item will displayed in a dialog field
@@ -101,5 +100,5 @@ public abstract class AbsDialogFieldViewController<T extends AbsDialogField> ext
      *
      * @return
      */
-    protected abstract View getResultItemView(final DialogResultItem item);
+    protected abstract View getResultItemView(final RepeatResultItem item);
 }

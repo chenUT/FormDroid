@@ -17,9 +17,9 @@
       "name": "check box input"
     },
     {
-      "@type": "dialog",
+      "@type": "repeat",
       "fieldId": "da",
-      "name": "dialog",
+      "name": "repeat",
       "fields":[
         {
           "@type": "text",

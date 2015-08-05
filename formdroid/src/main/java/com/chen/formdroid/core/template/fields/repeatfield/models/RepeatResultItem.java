@@ -1,9 +1,8 @@
-package com.chen.formdroid.core.template.fields.dialogfield.models;
+package com.chen.formdroid.core.template.fields.repeatfield.models;
 
 
 
 import com.chen.formdroid.core.internal.AbsInputField;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
  * TODO:should we create a abstract class or interface for this?
  * Created by chen on 5/18/15.
  */
-public class DialogResultItem {
+public class RepeatResultItem {
 
     public static final int ITEM_INDEX_NEW = -1;
 
@@ -23,11 +22,11 @@ public class DialogResultItem {
     @JsonIgnore
     private int index;
 
-    public DialogResultItem(){
+    public RepeatResultItem(){
        this(-1);
     }
 
-    public DialogResultItem(int index){
+    public RepeatResultItem(int index){
         resultFields = new ArrayList<>();
         this.index = index;
     }

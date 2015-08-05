@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import com.chen.formdroid.core.internal.InputFieldFactory;
 import com.chen.formdroid.core.template.form.Form;
 import com.chen.formdroid.exceptions.InvalidFormIdException;
-import com.chen.formdroid.iListeners.IDataModelListener;
-import com.chen.formdroid.iListeners.IEventListener;
 import com.chen.formdroid.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -35,9 +33,6 @@ public class FormContext {
     }
 
     private FormContext(){}
-
-    public static final List<IEventListener> _eventListeners= new LinkedList<>();
-    public static final Map<String, IDataModelListener> _dataModelListeners= new ConcurrentHashMap<>();
 
     private static final Map<String, Form>  _globalFormCache = new ConcurrentHashMap<>();
 

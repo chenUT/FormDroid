@@ -1,4 +1,4 @@
-package com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers;
+package com.chen.formdroid.core.template.fields.repeatfield.viewcontrollers;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -12,8 +12,8 @@ import com.chen.formdroid.core.internal.AbsDialogFieldViewController;
 import com.chen.formdroid.core.internal.AbsInputField;
 import com.chen.formdroid.core.internal.FormCoreFragment;
 import com.chen.formdroid.core.internal.FormDialogFragment;
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
+import com.chen.formdroid.core.template.fields.repeatfield.models.RepeatField;
+import com.chen.formdroid.core.template.fields.repeatfield.models.RepeatResultItem;
 import com.chen.formdroid.utils.StringUtils;
 
 import java.util.List;
@@ -21,18 +21,18 @@ import java.util.List;
 /**
  * Created by chen on 4/23/15.
  */
-public class DialogFieldViewController extends AbsDialogFieldViewController<DialogField> {
+public class RepeatViewController extends AbsDialogFieldViewController<RepeatField> {
 
     private LinearLayout mRootView;
 
     private LinearLayout mResultWrapper;
 
-    public DialogFieldViewController(DialogField field, Fragment frag) {
+    public RepeatViewController(RepeatField field, Fragment frag) {
         super(field, frag);
     }
 
     @Override
-    protected View getResultItemView(final DialogResultItem item) {
+    protected View getResultItemView(final RepeatResultItem item) {
         String formId = ((FormCoreFragment)getFragment()).getFormId();
         String result ="";
         for(AbsInputField f : item.getResultFields()){
@@ -59,7 +59,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     @Override
-    public void onDialogResult(final DialogResultItem resultItem, int resultCode) {
+    public void onDialogResult(final RepeatResultItem resultItem, int resultCode) {
         if(RESULT_CODE_CREATE_NEW == resultCode) {
             //this will assign an id to the resultItem
             getField().addResultItem(resultItem);
@@ -72,13 +72,13 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     @Override
-    public View getView(final DialogField mField, Fragment mFrag) {
+    public View getView(final RepeatField mField, Fragment mFrag) {
         String formId = ((FormCoreFragment)mFrag).getFormId();
         mRootView =(LinearLayout)getInflater().inflate(R.layout.inputfield_dialog, (ViewGroup) mFrag.getView(), false);
         //open dialog button
         Button button = (Button)mRootView.findViewById(R.id.dialog_action);
         mField.getFields();
-        button.setOnClickListener(new OpenDialogButtonListener(formId, DialogResultItem.ITEM_INDEX_NEW));
+        button.setOnClickListener(new OpenDialogButtonListener(formId, RepeatResultItem.ITEM_INDEX_NEW));
         String fieldName = mField.getName();
         if(!StringUtils.isEmptyOrWhiteSpace(getField().getName())){
             button.setText(StringUtils.getResourceString(R.string.dialog_create_button_default_prefix) + " " + fieldName);
@@ -88,7 +88,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     @Override
-    protected void initViewValue(final DialogField field) {
+    protected void initViewValue(final RepeatField field) {
         initResultList(field, mRootView);
     }
 
@@ -98,7 +98,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
         }
     }
 
-    private void initResultList(final DialogField field, ViewGroup root){
+    private void initResultList(final RepeatField field, ViewGroup root){
         if(mResultWrapper == null) {
             mResultWrapper = (LinearLayout) root.findViewById(R.id.dialog_result_wrapper);
         }
@@ -106,11 +106,11 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
             //drop all current views
             mResultWrapper.removeAllViews();
         }
-        List<DialogResultItem> items = field.getValue();
+        List<RepeatResultItem> items = field.getValue();
         if(items != null) {
             //results view
             for (int i = 0; i < items.size(); i++) {
-                DialogResultItem tmpItem =  items.get(i);
+                RepeatResultItem tmpItem =  items.get(i);
                 if(tmpItem.getIndex() != i){
                     tmpItem.setIndex(i);
                 }
@@ -131,7 +131,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
 
         @Override
         public void onClick(View v) {
-            FormDialogFragment.showDialog(getFragment(),index, DialogFieldViewController.this);
+            FormDialogFragment.showDialog(getFragment(),index, RepeatViewController.this);
         }
     }
 
@@ -149,7 +149,7 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
     }
 
     private void removeResultItem(int index){
-        List<DialogResultItem> items =  getField().getValue();
+        List<RepeatResultItem> items =  getField().getValue();
         items.remove(index);
     }
 
@@ -159,9 +159,9 @@ public class DialogFieldViewController extends AbsDialogFieldViewController<Dial
      * @return true data has been updated
      *          false data fail to update
      */
-    private boolean updateFieldData(DialogField field, DialogResultItem data){
+    private boolean updateFieldData(RepeatField field, RepeatResultItem data){
         //if its an update we do the update other we add back to result
-        for (DialogResultItem value : field.getValue()) {
+        for (RepeatResultItem value : field.getValue()) {
                 return true;
         }
         return false;

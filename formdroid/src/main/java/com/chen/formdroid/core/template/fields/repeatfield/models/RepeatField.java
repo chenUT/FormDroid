@@ -1,4 +1,4 @@
-package com.chen.formdroid.core.template.fields.dialogfield.models;
+package com.chen.formdroid.core.template.fields.repeatfield.models;
 
 
 import android.support.v4.app.Fragment;
@@ -6,10 +6,8 @@ import android.support.v4.app.Fragment;
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.internal.AbsInputField;
 import com.chen.formdroid.core.internal.AbsInputFieldViewController;
-import com.chen.formdroid.core.template.fields.AbsCompositeField;
 import com.chen.formdroid.core.template.fields.AbsDialogField;
-import com.chen.formdroid.core.template.fields.dialogfield.viewcontrollers.DialogFieldViewController;
-import com.chen.formdroid.utils.StringUtils;
+import com.chen.formdroid.core.template.fields.repeatfield.viewcontrollers.RepeatViewController;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,9 +18,9 @@ import java.util.List;
 /**
  * Created by chen on 4/23/15.
  */
-@InputField(type = "dialog")
-public class DialogField extends AbsDialogField {
-    public DialogField(){
+@InputField(type = "repeat")
+public class RepeatField extends AbsDialogField {
+    public RepeatField(){
         super();
     }
 
@@ -31,7 +29,7 @@ public class DialogField extends AbsDialogField {
     public boolean mutable = true;
 
     @JsonCreator
-    public DialogField(@JsonProperty("fieldId") String fieldId) {
+    public RepeatField(@JsonProperty("fieldId") String fieldId) {
         super(fieldId);
     }
 
@@ -40,13 +38,13 @@ public class DialogField extends AbsDialogField {
     }
 
     @Override
-    public List<DialogResultItem> getValue() {
+    public List<RepeatResultItem> getValue() {
         return this.value;
     }
 
     @Override
-    public AbsInputField<List<DialogResultItem>> cloneWithNewId(String fieldId) {
-        DialogField result = new DialogField(fieldId);
+    public AbsInputField<List<RepeatResultItem>> cloneWithNewId(String fieldId) {
+        RepeatField result = new RepeatField(fieldId);
         //clone the fields
         for(int i =0; i< getFields().size(); i++){
             AbsInputField tmp = getFields().get(i);
@@ -57,16 +55,16 @@ public class DialogField extends AbsDialogField {
     }
 
     @Override
-    public void setValue(List<DialogResultItem> o) {
+    public void setValue(List<RepeatResultItem> o) {
        this.value = o;
     }
 
     @Override
     public AbsInputFieldViewController getViewController(Fragment frag) {
-        return new DialogFieldViewController(this, frag);
+        return new RepeatViewController(this, frag);
     }
 
-    public void addResultItem(final DialogResultItem resultItem){
+    public void addResultItem(final RepeatResultItem resultItem){
         if(this.value == null){
             this.value = new ArrayList<>();
         }

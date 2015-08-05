@@ -30,7 +30,10 @@ public abstract class AbsInputField<T> {
     //position id indicate the position of this field in the form structure
     @JsonProperty
     private String posId;
-    //top level properties
+
+    /**top level properties**/
+
+    //name for this field this should be unique unless in a dialog field
     @JsonProperty
     private String name;
     @JsonProperty
@@ -61,10 +64,6 @@ public abstract class AbsInputField<T> {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isEnabled() {

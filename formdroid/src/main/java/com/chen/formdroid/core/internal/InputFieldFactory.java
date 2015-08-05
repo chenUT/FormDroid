@@ -3,7 +3,7 @@ package com.chen.formdroid.core.internal;
 
 import com.chen.formdroid.core.annotations.InputField;
 import com.chen.formdroid.core.template.fields.checkboxfield.models.CheckBoxInputField;
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
+import com.chen.formdroid.core.template.fields.repeatfield.models.RepeatField;
 import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
 import com.chen.formdroid.core.template.fields.textfield.models.TextField;
 import com.chen.formdroid.exceptions.InputFieldTypeMismatchException;
@@ -95,7 +95,7 @@ public final class InputFieldFactory {
     static{
         registerField(LabelField.class);
         registerField(TextField.class);
-        registerField(DialogField.class);
+        registerField(RepeatField.class);
         registerField(CheckBoxInputField.class);
         //TODO do we register abstract type?
 //        registerField(AbsDialogField.class);

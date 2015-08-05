@@ -5,7 +5,6 @@ import android.support.test.espresso.assertion.ViewAssertions;
 import android.test.ActivityInstrumentationTestCase2;
 import android.support.test.InstrumentationRegistry;
 import android.util.Log;
-import android.widget.Button;
 
 import org.junit.Before;
 
@@ -18,15 +17,15 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 /**
  * Created by chen on 7/5/15.
  */
-public class SampleFormActivityTest extends ActivityInstrumentationTestCase2<SampleFormActivity> {
+public class SampleTestFormActivityTest extends ActivityInstrumentationTestCase2<SampleTestFormActivity> {
 
-    private SampleFormActivity mActivity;
+    private SampleTestFormActivity mActivity;
 
-    public SampleFormActivityTest(){
-       super(SampleFormActivity.class);
+    public SampleTestFormActivityTest(){
+       super(SampleTestFormActivity.class);
     }
 
-    public SampleFormActivityTest(Class<SampleFormActivity> activityClass) {
+    public SampleTestFormActivityTest(Class<SampleTestFormActivity> activityClass) {
         super(activityClass);
     }
 

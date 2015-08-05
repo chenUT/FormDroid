@@ -13,7 +13,7 @@
       "name": "Pass exam"
     },
     {
-      "@type": "dialog",
+      "@type": "repeat",
       "fieldId": "da",
       "name": "recommendation",
       "fields":[

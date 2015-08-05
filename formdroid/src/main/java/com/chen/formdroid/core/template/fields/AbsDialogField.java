@@ -1,6 +1,6 @@
 package com.chen.formdroid.core.template.fields;
 
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
+import com.chen.formdroid.core.template.fields.repeatfield.models.RepeatResultItem;
 import com.chen.formdroid.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by chen on 4/22/15.
  */
-public abstract class AbsDialogField extends AbsCompositeField<List<DialogResultItem>>{
+public abstract class AbsDialogField extends AbsCompositeField<List<RepeatResultItem>>{
     @JsonProperty
     public String dialogTitle;
 
@@ -31,7 +31,7 @@ public abstract class AbsDialogField extends AbsCompositeField<List<DialogResult
 
     @Override
     public boolean clear() {
-        for(DialogResultItem resultField : super.value){
+        for(RepeatResultItem resultField : super.value){
            resultField.clear();
         }
         return false;

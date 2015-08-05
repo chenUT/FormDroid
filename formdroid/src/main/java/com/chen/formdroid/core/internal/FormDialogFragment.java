@@ -13,12 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.chen.formdroid.FormContext;
 import com.chen.formdroid.R;
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogField;
-import com.chen.formdroid.core.template.fields.dialogfield.models.DialogResultItem;
-import com.chen.formdroid.core.template.form.Form;
-import com.chen.formdroid.exceptions.InputFieldTypeMismatchException;
+import com.chen.formdroid.core.template.fields.repeatfield.models.RepeatResultItem;
 import com.chen.formdroid.utils.FDViewUtils;
 import com.chen.formdroid.utils.StringUtils;
 
@@ -137,7 +133,7 @@ public class FormDialogFragment extends DialogFragment{
         return builder;
     }
 
-    private DialogResultItem getCurrentResultItem(){
+    private RepeatResultItem getCurrentResultItem(){
         List<AbsInputField> oldFields = mViewCtrl.getFields();
         List<AbsInputField> clonedFields =  new ArrayList<>();
         for(AbsInputField field : oldFields){
@@ -146,7 +142,7 @@ public class FormDialogFragment extends DialogFragment{
             //clear the original field
             field.clear();
         }
-        DialogResultItem resutlItem = new DialogResultItem();
+        RepeatResultItem resutlItem = new RepeatResultItem();
         resutlItem.setIndex(mResultItemIndex);
         resutlItem.setResultFields(clonedFields);
         return  resutlItem;
@@ -164,8 +160,8 @@ public class FormDialogFragment extends DialogFragment{
         public void onShow(DialogInterface dialog) {
             Button posButton = ((AlertDialog)getDialog()).getButton(Dialog.BUTTON_POSITIVE);
             posButton.setOnClickListener((view) -> {
-                DialogResultItem result = null;
-                if(mResultItemIndex == DialogResultItem.ITEM_INDEX_NEW){
+                RepeatResultItem result = null;
+                if(mResultItemIndex == RepeatResultItem.ITEM_INDEX_NEW){
                     result = getCurrentResultItem();
                 }
                 mViewCtrl.onDialogResultInternal(result, DIALOG_RESULT_POSITIVE);
