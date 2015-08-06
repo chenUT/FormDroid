@@ -1,7 +1,9 @@
 # Project is in early development stage and contributions are welcome.
 
 # FormDroid
-This is alternative of Collect from [ODK](https://opendatakit.org/) and based on [XLSForm](http://xlsform.org/) standard.
+This is an alternative of Collect from [ODK](https://opendatakit.org/) and based on [XLSForm](http://xlsform.org/) standard.
+
+# Intro
 A form engine for android, aim to create a codeless JSON only way of creating android form, for data intake from android device. The form will be reconfigurable, easy to setup and logic enabled. This project is in early development and some of the key component may change in future.
 
 #Sample App
