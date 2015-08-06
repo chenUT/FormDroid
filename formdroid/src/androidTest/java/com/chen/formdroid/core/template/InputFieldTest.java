@@ -2,7 +2,7 @@ package com.chen.formdroid.core.template;
 
 import android.test.InstrumentationTestCase;
 
-import com.chen.formdroid.core.template.fields.textfield.models.TextField;
+import com.chen.formdroid.form.template.fields.textfield.models.TextField;
 
 /**
  * Created by chen on 4/10/15.

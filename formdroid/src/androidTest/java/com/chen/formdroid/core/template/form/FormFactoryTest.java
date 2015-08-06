@@ -2,8 +2,10 @@ package com.chen.formdroid.core.template.form;
 
 import android.test.InstrumentationTestCase;
 
-import com.chen.formdroid.core.template.fields.textfield.models.LabelField;
-import com.chen.formdroid.core.template.fields.textfield.models.TextField;
+import com.chen.formdroid.form.template.fields.textfield.models.LabelField;
+import com.chen.formdroid.form.template.fields.textfield.models.TextField;
+import com.chen.formdroid.form.template.form.Form;
+import com.chen.formdroid.form.template.form.FormFactory;
 
 import junit.framework.Assert;
 

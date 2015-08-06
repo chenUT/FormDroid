@@ -3,7 +3,7 @@ package com.chen.formdroid.core.template;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
 
-import com.chen.formdroid.core.internal.InputFieldFactory;
+import com.chen.formdroid.form.internal.InputFieldFactory;
 import com.chen.formdroid.utils.StringUtils;
 
 /**

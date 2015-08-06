@@ -3,8 +3,8 @@ package com.chen.formdroid;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.chen.formdroid.core.internal.InputFieldFactory;
-import com.chen.formdroid.core.template.form.Form;
+import com.chen.formdroid.form.internal.InputFieldFactory;
+import com.chen.formdroid.form.template.form.Form;
 import com.chen.formdroid.exceptions.InvalidFormIdException;
 import com.chen.formdroid.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,8 +12,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -66,7 +64,7 @@ public class FormContext {
         _mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
-    public void addToPersistance(String formId, String formJson){
+    public void addToPersistence(String formId, String formJson){
         SharedPreferences pref = this._appContext.getSharedPreferences(SHARED_PREF_KEY_FORM_STRING, Context.MODE_PRIVATE);
         //apply this asynchronously
         pref.edit().putString(formId, formJson).apply();
@@ -83,7 +81,7 @@ public class FormContext {
            throw new InvalidFormIdException("FormId is invalid");
         }
         String formString = result.toJsonString();
-        addToPersistance(formId, formString);
+        addToPersistence(formId, formString);
     }
 
     public void addToCache(Form form){

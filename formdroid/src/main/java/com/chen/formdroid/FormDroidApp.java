@@ -3,9 +3,9 @@ package com.chen.formdroid;
 import android.app.Application;
 import android.content.Context;
 
-import com.chen.formdroid.core.internal.AbsInputField;
-import com.chen.formdroid.core.internal.AbsInputFieldViewController;
-import com.chen.formdroid.core.internal.InputFieldFactory;
+import com.chen.formdroid.form.internal.AbsInputField;
+import com.chen.formdroid.form.internal.AbsInputFieldViewController;
+import com.chen.formdroid.form.internal.InputFieldFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,14 +20,16 @@ public class FormDroidApp extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        //this will guarantee that root scope is alive and have a context reference
+        //init app context
+        _appContext = getApplicationContext();
+
+        //this will guarantee that root scope is alive, all static fileds get initialized and have a context reference
         initFields();
 
         //this is the last step of initialization
-        FormContext.getInstance().init(getApplicationContext());
+        FormContext.getInstance().init(_appContext);
 
-        //init app context
-        _appContext = getApplicationContext();
+
     }
 
     private final void initFields(){
@@ -56,6 +58,7 @@ public class FormDroidApp extends Application{
 
     /**
      * Override to register viewcontroller which extends existing controller with existing inputfield
+     * this is used if user want to replace a view from a existing inputfield
      * @param vCtrls
      * @return
      */

@@ -12,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chen.formdroid.FormContext;
-import com.chen.formdroid.core.internal.FormCoreFragment;
-import com.chen.formdroid.core.template.form.Form;
-import com.chen.formdroid.core.template.form.FormFactory;
+import com.chen.formdroid.form.internal.FormCoreFragment;
+import com.chen.formdroid.form.template.form.Form;
+import com.chen.formdroid.form.template.form.FormFactory;
 import com.chen.formdroid.exceptions.InvalidFormIdException;
 
 import java.io.IOException;
@@ -85,7 +85,7 @@ public class MainActivity extends FragmentActivity {
         }
         catch(IOException ioe){
         }
-        Form f = FormFactory.loadForm(jsonStr);
+        Form f = FormFactory.getInstance().loadFormByJson(jsonStr);
 
         String currentString = f.toJsonString();
 
