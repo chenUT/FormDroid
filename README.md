@@ -18,7 +18,7 @@ To create a simple form with checkbox and text input use the following json conf
   "fields": [
     {   
       "@type": "text",
-      "fieldId": "sampletest",
+      "fieldId": "sampletext",
       "name": "Preferred Name"
     },
     {
