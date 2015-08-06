@@ -1,4 +1,4 @@
-# Project is in early development stage and contributions are welcome.
+#### Project is in early development stage and contributions are welcome.
 
 # FormDroid
 This is an alternative of Collect from [ODK](https://opendatakit.org/) and based on [XLSForm](http://xlsform.org/) standard with enhanced logics and more comprehensive input fields.
