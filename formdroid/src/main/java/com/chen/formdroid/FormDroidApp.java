@@ -3,9 +3,9 @@ package com.chen.formdroid;
 import android.app.Application;
 import android.content.Context;
 
-import com.chen.formdroid.form.internal.AbsInputField;
-import com.chen.formdroid.form.internal.AbsInputFieldViewController;
-import com.chen.formdroid.form.internal.InputFieldFactory;
+import com.chen.formdroid.fdcore.internal.AbsInputField;
+import com.chen.formdroid.fdcore.internal.AbsInputFieldViewController;
+import com.chen.formdroid.fdcore.internal.InputFieldFactory;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.chen.formdroid.FormContext;
-import com.chen.formdroid.form.internal.FormCoreFragment;
-import com.chen.formdroid.form.template.form.Form;
-import com.chen.formdroid.form.template.form.FormFactory;
+import com.chen.formdroid.fdcore.internal.FormCoreFragment;
+import com.chen.formdroid.fdcore.template.form.Form;
+import com.chen.formdroid.fdcore.template.form.FormFactory;
 import com.chen.formdroid.exceptions.InvalidFormIdException;
 
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class SampleTestFormActivity extends ActionBarActivity {
     }
 
     /**
-     * sample form has an id of a we clear it first
+     * sample form has an id of a we clearToDefault it first
      */
     private void clearFormCache(){
         FormContext.getInstance().removeFromCache("a");

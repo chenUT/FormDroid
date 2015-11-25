@@ -12,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chen.formdroid.FormContext;
-import com.chen.formdroid.form.internal.FormCoreFragment;
-import com.chen.formdroid.form.template.form.Form;
-import com.chen.formdroid.form.template.form.FormFactory;
+import com.chen.formdroid.fdcore.internal.FormCoreFragment;
+import com.chen.formdroid.fdcore.template.form.Form;
+import com.chen.formdroid.fdcore.template.form.FormFactory;
 import com.chen.formdroid.exceptions.InvalidFormIdException;
 
 import java.io.IOException;
@@ -75,28 +75,22 @@ public class MainActivity extends FragmentActivity {
         if(_formLoaded){
             return ;
         }
-        String jsonStr = "";
-        try {
-            InputStream in = getAssets().open("form_inspect.json");
-            byte[] buffer = new byte[in.available()];
-            in.read(buffer);
-            in.close();
-            jsonStr = new String(buffer, "UTF-8");
-        }
-        catch(IOException ioe){
-        }
-        Form f = FormFactory.getInstance().loadFormByJson(jsonStr);
+
+        Form f = FormFactory.getInstance().loadFromAssets("form_inspect.json");
 
         String currentString = f.toJsonString();
 
         setFormDisplayContent(currentString);
 
         mFormId = f.getFormId();
+
         Fragment temp = FormCoreFragment.newInstance(f.getFormId());
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame, temp)
                 .addToBackStack("form")
                 .commit();
+
         _formLoaded = true;
     }
 

@@ -26,6 +26,25 @@
           "name": "Required"
         }
       ]
+    },
+    {
+      "@type": "slider",
+      "fieldId":"fs",
+      "name":"Rating",
+      "max" : 10
+    },
+    {
+      "@type": "selectOne",
+      "fieldId":"fso",
+      "name":"Gender",
+      "options":[
+        {
+          "text":"male"
+        },
+        {
+          "text":"female"
+        }
+      ]
     }
   ]
 }

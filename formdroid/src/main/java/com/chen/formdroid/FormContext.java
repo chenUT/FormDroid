@@ -3,8 +3,8 @@ package com.chen.formdroid;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.chen.formdroid.form.internal.InputFieldFactory;
-import com.chen.formdroid.form.template.form.Form;
+import com.chen.formdroid.fdcore.internal.InputFieldFactory;
+import com.chen.formdroid.fdcore.template.form.Form;
 import com.chen.formdroid.exceptions.InvalidFormIdException;
 import com.chen.formdroid.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,7 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by chen on 3/26/15.
  */
-//TODO move persistance calls to a background intetnservice or thread if network is involved.
 public class FormContext {
 
     private final static String SHARED_PREF_KEY = "com.chen.formdroid.persistance";
@@ -133,9 +132,14 @@ public class FormContext {
     }
 
     private Form getFromCache(String formId){
+        if(StringUtils.isEmptyOrWhiteSpace(formId)) {
+            return null;
+        }
+
         if(_globalFormCache.containsKey(formId)) {
             return _globalFormCache.get(formId);
         }
+
         return null;
     }
 }
