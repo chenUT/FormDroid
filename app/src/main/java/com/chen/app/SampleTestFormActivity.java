@@ -31,10 +31,11 @@ public class SampleTestFormActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sample_form);
 
         final Button save = (Button)findViewById(R.id.save);
-        final Button load = (Button)findViewById(R.id.load);
+        final Button load = (Button)findViewById(R.id.load_button);
         final Button delete = (Button)findViewById(R.id.delete);
 
         clearFormCache();
@@ -76,16 +77,7 @@ public class SampleTestFormActivity extends ActionBarActivity {
 
     private void load(){
         String jsonStr = "";
-        try {
-            InputStream in = getAssets().open("sample_test.json");
-            byte[] buffer = new byte[in.available()];
-            in.read(buffer);
-            in.close();
-            jsonStr = new String(buffer, "UTF-8");
-        }
-        catch(IOException ioe){
-        }
-        Form f = FormFactory.getInstance().loadFormByJson(jsonStr);
+        Form f = FormFactory.getInstance().loadFromAssets("sample_test.json");
         mFormId = f.getFormId();
         Fragment temp = FormCoreFragment.newInstance(f.getFormId());
         getSupportFragmentManager().beginTransaction()

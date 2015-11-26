@@ -1,0 +1,40 @@
+{
+  "title":"Presentation Survey",
+  "fields": [
+    {
+      "@type": "text",
+      "fieldId": "name",
+      "name": "Reviewer"
+    },
+    {
+      "@type": "slider",
+      "fieldId":"fs",
+      "name":"Score",
+      "max" : 10
+    },
+    {
+      "@type": "selectOne",
+      "fieldId":"fso",
+      "name":"Gender",
+      "options":[
+        {
+          "text":"Male"
+        },
+        {
+          "text":"Female"
+        }
+      ]
+    },
+    {
+      "@type": "repeat",
+      "fieldId": "da",
+      "name": "Recommendation",
+      "fields":[
+        {
+          "@type": "text",
+          "name":"Recommendation"
+        }
+      ]
+    }
+  ]
+}

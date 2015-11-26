@@ -1,9 +1,14 @@
 package com.chen.app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,118 +25,27 @@ import com.chen.formdroid.exceptions.InvalidFormIdException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private String mFormId;
-
-    private static boolean _formLoaded = false;
-
-    private TextView formContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button save = (Button)findViewById(R.id.save);
-        final Button load = (Button)findViewById(R.id.load_sample_inspect);
-        final Button delete = (Button)findViewById(R.id.delete);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        formContent = (TextView)findViewById(R.id.form_json_content);
-
-        load.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                load();
-            }
-        });
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteForm();
+            public void onClick(View view) {
+                startFormActivty();
             }
         });
     }
 
-    private void deleteForm(){
-        if(!_formLoaded){
-            return;
-        }
-
-        FormContext.getInstance().deleteForm(mFormId);
-        getSupportFragmentManager().popBackStack("form", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        _formLoaded = false;
-        setFormDisplayContent("");
-    }
-
-    private void load(){
-        if(_formLoaded){
-            return ;
-        }
-
-        Form f = FormFactory.getInstance().loadFromAssets("form_inspect.json");
-
-        String currentString = f.toJsonString();
-
-        setFormDisplayContent(currentString);
-
-        mFormId = f.getFormId();
-
-        Fragment temp = FormCoreFragment.newInstance(f.getFormId());
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame, temp)
-                .addToBackStack("form")
-                .commit();
-
-        _formLoaded = true;
-    }
-
-    private void save(){
-        if(!_formLoaded){
-            return;
-        }
-        try {
-            FormContext.getInstance().persisForm(mFormId);
-            getSupportFragmentManager().popBackStack("form", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            _formLoaded = false;
-            setFormDisplayContent("");
-        } catch (InvalidFormIdException e) {
-            Toast.makeText(getApplicationContext(), "Error saving form", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-    }
-
-    private void setFormDisplayContent(String content){
-        formContent.setText(content);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private void startFormActivty(){
+        Intent intent = new Intent(this, FormHolderActivity.class);
+        startActivity(intent);
     }
 }

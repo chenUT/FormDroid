@@ -1,10 +1,14 @@
-package com.chen.app;
+package com.chen.app.integration;
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.assertion.ViewAssertions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.test.ActivityInstrumentationTestCase2;
 import android.support.test.InstrumentationRegistry;
 import android.util.Log;
+
+import com.chen.app.R;
+import com.chen.app.SampleTestFormActivity;
 
 import org.junit.Before;
 
@@ -38,7 +42,7 @@ public class SampleTestFormActivityTest extends ActivityInstrumentationTestCase2
 
     public void testFragmentShowUp_sameActivity(){
         //check framelayout is displayed
-        ViewInteraction fragmentText = onView(withId(R.id.frame));
+        ViewInteraction fragmentText = onView(ViewMatchers.withId(R.id.frame));
         fragmentText.check((ViewAssertions.matches(isDisplayed())));
     }
 
@@ -53,7 +57,7 @@ public class SampleTestFormActivityTest extends ActivityInstrumentationTestCase2
     }
 
     public void testDialogShowUp_sameActivity(){
-        ViewInteraction dialogInput = onView(withText("New dialog"));
+        ViewInteraction dialogInput = onView(withText("New Dialog"));
         dialogInput.check((ViewAssertions.matches(isDisplayed())));
     }
 
@@ -68,11 +72,11 @@ public class SampleTestFormActivityTest extends ActivityInstrumentationTestCase2
         ViewInteraction checkboxInput = onView(withText("check box input"));
         checkboxInput.check(ViewAssertions.doesNotExist());
 
-        ViewInteraction dialogInput = onView(withText("New dialog"));
+        ViewInteraction dialogInput = onView(withText("New Dialog"));
         dialogInput.check((ViewAssertions.doesNotExist()));
 
         //load it back
-        onView(withId(R.id.load)).perform(click());
+        onView(withId(R.id.load_button)).perform(click());
 
         //check everything is back
         textInput = onView(withText("text input"));
@@ -81,7 +85,7 @@ public class SampleTestFormActivityTest extends ActivityInstrumentationTestCase2
         checkboxInput = onView(withText("check box input"));
         checkboxInput.check((ViewAssertions.matches(isDisplayed())));
 
-        dialogInput = onView(withText("New dialog"));
+        dialogInput = onView(withText("New Dialog"));
         dialogInput.check((ViewAssertions.matches(isDisplayed())));
     }
 
